@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 
-let exchangeRates = {
+const exchangeRates = {
   usd: {
     buy: 35.55,
     sell: 35.05
@@ -17,17 +17,16 @@ let exchangeRates = {
 }
 
 function tryConvert(amount, currency, isSell) {
-  const input = parseFloat(amount);
+  const input = parseFloat(+amount);
   if (Number.isNaN(input)) {
-    return '';
+    return '...';
   }
-  let coef = 1;
+  
+  const coef = isSell ? exchangeRates[currency].sell : exchangeRates[currency].buy
 
-  coef = isSell ? exchangeRates[currency].sell : exchangeRates[currency].buy
-
-  const output = amount / coef;
+  const output = isSell ? (amount * coef) : (amount / coef);
   const rounded = output.toFixed(4);
-  return rounded.toString();
+  return rounded.toString().slice(0, -2);
 }
 
 function CurrencyTable(props) {
@@ -54,6 +53,19 @@ function CurrencyTable(props) {
     </tr>
     <GetTable />
   </table>
+}
+
+function BuySellButton(props) {
+
+  
+  const handleClick = () => {
+    const value = props.param === 'buy' ? 'sell' : 'buy' 
+    props.handleClick(value);
+  }
+
+  return (
+    <button onClick={handleClick}>{props.param.toUpperCase()}</button>
+  );
 }
 
 //todo in separate file
@@ -110,46 +122,52 @@ class AmountInput extends React.Component {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.handleUahChange = this.handleUahChange.bind(this);
+    this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
-    this.state = { buySell: 'buy', uah: '1', selectedCurrency: 'usd' };
+    this.handleBuySellState = this.handleBuySellState.bind(this);
+    this.state = { buySell: 'buy', amount: '1', selectedCurrency: 'usd' };
   }
 
-  handleUahChange(uah) {
-    this.setState({ buySell: 'buy', uah });
+  handleAmountChange(amount) {
+    this.setState({amount });
   }
   handleCurrencyChange(selectedCurrency) {
     this.setState({selectedCurrency});
   }
+  handleBuySellState(buySell) {
+    
+    this.setState({buySell:buySell});
+  }
 
   render() {
-
-    let uahValue = this.state.uah;
-    let cur = this.state.selectedCurrency;  
-    let convertedAmount = tryConvert(uahValue, cur, false);
-
+    const amount = this.state.amount;
+    const cur = this.state.selectedCurrency;  
+    const isSell =  this.state.buySell === 'sell';
+    const convertedAmount = tryConvert(amount, cur, this.state.buySell === 'sell');
+    const inputCurrency = isSell ? this.state.selectedCurrency.toUpperCase() : 'UAH'
+    const localCurrency = 'uah';
     return (
       <div>
         <h1 align="center">
           Currency Exchange
         </h1>
         <CurrencyTable currencyList={exchangeRates} />
-        {/* <AmountInput
-          currency="usd"
-          amount={convertedAmount}
-        /> */}
         <DropDown 
            listValues={Object.keys(exchangeRates)}
            selectedValue={this.state.selectedCurrency}
            onValueSelected={this.handleCurrencyChange}
          />
+         <BuySellButton 
+          handleClick={this.handleBuySellState}
+          param={this.state.buySell}
+         />
         <AmountInput
-          currency="uah"
-          amount={uahValue}
-          onValueChange={this.handleUahChange}
+          currency={inputCurrency}
+          amount={amount}
+          onValueChange={this.handleAmountChange}
         />
         <p>
-         Equals: {convertedAmount} {cur.toUpperCase()}
+         Equals: {convertedAmount} {isSell ? localCurrency.toUpperCase() : cur.toUpperCase()}
         </p>
       </div>
     );

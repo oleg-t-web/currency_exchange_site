@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+select {
+  margin: 10px;
+  text-indent:3px;
+  width: 60px;
+}
+
+input {
+  margin: 1px 1px 1px 10px;
+  text-indent:3px;
+  width: 200px;
+}
+
+legend {
+  margin: 10px 1px 1px 10px;
+}
+
+p {
+  margin: 10px 1px 1px 10px;
+}
