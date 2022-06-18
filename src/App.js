@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { useState } from 'react';
 
 const OPERATION = {
   BUY: "BUY",
@@ -118,31 +119,24 @@ function AmountInput(props) {
 
 }
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleAmountChange = this.handleAmountChange.bind(this);
-    this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
-    this.handleBuySellState = this.handleBuySellState.bind(this);
-    this.state = { buySell: OPERATION.BUY, amount: '1', selectedCurrency: CURRENCY.USD };
-  }
+function App () {
 
-  handleAmountChange(amount) {
-    this.setState({ amount });
+  const [buySell, setBuySell] = useState(OPERATION.BUY);
+  const [amount, setAmount] = useState('1');
+  const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY.USD);
+  
+  const handleAmountChange = (amount) => {
+    setAmount(amount);
   }
-  handleCurrencyChange(selectedCurrency) {
-    this.setState({ selectedCurrency });
+  const handleCurrencyChange = (selectedCurrency) => {
+    setSelectedCurrency(selectedCurrency);
   }
-  handleBuySellState(buySell) {
-    this.setState({ buySell: buySell });
+  const handleBuySellState = (buySell) => {
+    setBuySell(buySell);
   }
-
-  render() {
-    const amount = this.state.amount;
-    const cur = this.state.selectedCurrency;
-    const isSell = this.state.buySell === OPERATION.SELL;
-    const convertedAmount = tryConvert(amount, cur, this.state.buySell === OPERATION.SELL) || "...";
-    const inputCurrency = isSell ? this.state.selectedCurrency.toUpperCase() : CURRENCY.UAH
+    const isSell = buySell === OPERATION.SELL;
+    const convertedAmount = tryConvert(amount, selectedCurrency, isSell) || "...";
+    const inputCurrency = isSell ? selectedCurrency.toUpperCase() : CURRENCY.UAH
     const localCurrency = CURRENCY.UAH;
     return (
       <div>
@@ -152,24 +146,23 @@ class App extends React.Component {
         <CurrencyTable currencyList={exchangeRates} />
         <DropDown
           listValues={Object.keys(exchangeRates)}
-          selectedValue={this.state.selectedCurrency}
-          onValueSelected={this.handleCurrencyChange}
+          selectedValue={selectedCurrency}
+          onValueSelected={handleCurrencyChange}
         />
         <BuySellButton
-          handleClick={this.handleBuySellState}
-          param={this.state.buySell}
+          handleClick={handleBuySellState}
+          param={buySell}
         />
         <AmountInput
           currency={inputCurrency}
           amount={amount}
-          onValueChange={this.handleAmountChange}
+          onValueChange={handleAmountChange}
         />
         <p>
-          Equals: {convertedAmount} {isSell ? localCurrency.toUpperCase() : cur.toUpperCase()}
+          Equals: {convertedAmount} {isSell ? localCurrency.toUpperCase() : selectedCurrency}
         </p>
       </div>
     );
-  }
 }
 
 export default App;
