@@ -15,7 +15,7 @@ const TableBody = (props) => {
     const children = [];
     children.push(<td>{'' + key.toUpperCase()}</td>);
     for (let val of columnNames) {
-      children.push(<td>{values[key][val].toFixed(2)}</td>);
+      children.push(<td>{values[key][val]}</td>);
     }
     table.push(<tr>{children}</tr>);
   }
