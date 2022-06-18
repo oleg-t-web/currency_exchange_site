@@ -1,5 +1,4 @@
-const TableHeader = (props) => {
-  const values = props.values;
+const TableHeader = ({ values }) => {
   const header = [];
   for (let val of values) {
     header.push(<th>{val}</th>);
@@ -7,9 +6,7 @@ const TableHeader = (props) => {
   return header;
 };
 
-const TableBody = (props) => {
-  const values = props.values;
-  const columnNames = props.columnNames;
+const TableBody = ({ values, columnNames }) => {
   const table = [];
   for (let key in values) {
     const children = [];
@@ -22,11 +19,7 @@ const TableBody = (props) => {
   return table;
 };
 
-const CompTable = (props) => {
-  const header = props.header;
-  const body = props.body;
-  const columnNames = props.columnNames;
-
+const CompTable = ({ header, body, columnNames }) => {
   return (
     <table cellSpacing="20">
       <tr>

@@ -1,9 +1,7 @@
-const CompValueInput = (props) => {
+const CompValueInput = ({ value, caption, onValueChange }) => {
   const handleChange = (e) => {
-    props.onValueChange(e.target.value);
+    onValueChange(e.target.value);
   };
-  let value = props.value;
-  const caption = props.caption;
 
   return (
     <div>
