@@ -7,9 +7,7 @@ const CompDropDown = (props) => {
   const getSelectList = () => {
     const children = [];
     for (let i = 0; i < listValues.length; ++i) {
-      children.push(
-        <option value={listValues[i]}>{listValues[i].toUpperCase()}</option>
-      );
+      children.push(<option value={listValues[i]}>{listValues[i].toUpperCase()}</option>);
     }
     return (
       <select value={value} onChange={handleChange}>

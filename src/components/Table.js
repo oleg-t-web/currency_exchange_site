@@ -13,7 +13,7 @@ const TableBody = (props) => {
   const table = [];
   for (let key in values) {
     const children = [];
-    children.push(<td>{"" + key.toUpperCase()}</td>);
+    children.push(<td>{'' + key.toUpperCase()}</td>);
     for (let val of columnNames) {
       children.push(<td>{values[key][val].toFixed(2)}</td>);
     }
@@ -28,7 +28,7 @@ const CompTable = (props) => {
   const columnNames = props.columnNames;
 
   return (
-    <table cellspacing="20">
+    <table cellSpacing="20">
       <tr>
         <TableHeader values={header} />
       </tr>
