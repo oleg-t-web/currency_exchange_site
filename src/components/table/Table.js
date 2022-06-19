@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TableHeader from './tableHeader/TableHeader';
 import TableBody from './tableBody/TableBody';
 
@@ -10,6 +11,11 @@ const CompTable = ({ header, body, columnNames }) => {
       <TableBody values={body} columnNames={columnNames} />
     </table>
   );
+};
+CompTable.propTypes = {
+  header: PropTypes.array,
+  body: PropTypes.object,
+  columnNames: PropTypes.array
 };
 
 export default CompTable;

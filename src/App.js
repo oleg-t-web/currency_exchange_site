@@ -61,7 +61,7 @@ function App() {
       <CompDropDown
         listValues={currencyList}
         selectedValue={selectedCurrency}
-        onValueSelected={handleCurrencyChange}
+        handleValueSelected={handleCurrencyChange}
       />
       <CompButton handleClick={handleBuySellState} caption={buySell} />
       <CompValueInput
