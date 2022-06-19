@@ -7,6 +7,7 @@ import CompValueInput from './components/ValueInput';
 import CompTable from './components/table/Table';
 import { OPERATION, CURRENCY } from './CurrencyConstants';
 import { tryConvert } from './helpers/TryConvertCurrency';
+// import Button from '@mui/material/Button';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
@@ -70,6 +71,7 @@ function App() {
         handleChange={handleAmountChange}
       />
       <p>Equals: {convertionResStr}</p>
+      {/* <Button variant="contained">Hello World</Button> */}
     </div>
   );
 }
