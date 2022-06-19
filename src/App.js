@@ -4,19 +4,9 @@ import { useState } from 'react';
 import CompButton from './components/Buttons';
 import CompDropDown from './components/DropDown';
 import CompValueInput from './components/ValueInput';
-import CompTable from './components/Table';
-
-const OPERATION = {
-  BUY: 'BUY',
-  SELL: 'SELL'
-};
-
-const CURRENCY = {
-  UAH: 'UAH',
-  EUR: 'EUR',
-  GBR: 'GBR',
-  USD: 'USD'
-};
+import CompTable from './components/table/Table';
+import { OPERATION, CURRENCY } from './CurrencyConstants';
+import { tryConvert } from './helpers/TryConvertCurrency';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
@@ -32,26 +22,22 @@ const exchangeRates = {
     [OPERATION.SELL]: 41.1
   }
 };
-
-function tryConvert(amount, currency, isSell) {
-  const input = parseFloat(+amount);
-  if (Number.isNaN(input)) {
-    return undefined;
-  }
-
-  const coef = isSell
-    ? exchangeRates[currency][OPERATION.SELL]
-    : exchangeRates[currency][OPERATION.SELL];
-
-  const output = isSell ? amount * coef : amount / coef;
-  const rounded = output.toFixed(4);
-  return rounded.toString().slice(0, -2);
-}
-
+const currencyList = Object.keys(exchangeRates);
 function App() {
   const [buySell, setBuySell] = useState(OPERATION.BUY);
   const [amount, setAmount] = useState('1');
   const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY.USD);
+
+  const isSell = buySell === OPERATION.SELL;
+  const convertedAmount = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
+  const inputCurrency = isSell ? selectedCurrency.toUpperCase() : CURRENCY.UAH;
+  const localCurrency = CURRENCY.UAH;
+  const inputValueCaption = `Amount in ${('' + inputCurrency).toUpperCase()}:`;
+  const currencyTableHeader = ['Currency', 'Buy', 'Sell'];
+  const currencyTableColumnNames = [OPERATION.BUY, OPERATION.SELL];
+  const convertionResStr = `${convertedAmount} ${
+    isSell ? localCurrency.toUpperCase() : selectedCurrency
+  }`;
 
   const handleAmountChange = (amount) => {
     setAmount(amount);
@@ -63,22 +49,17 @@ function App() {
     const state = buySell === OPERATION.BUY ? OPERATION.SELL : OPERATION.BUY;
     setBuySell(state);
   };
-  const isSell = buySell === OPERATION.SELL;
-  const convertedAmount = tryConvert(amount, selectedCurrency, isSell) || '...';
-  const inputCurrency = isSell ? selectedCurrency.toUpperCase() : CURRENCY.UAH;
-  const localCurrency = CURRENCY.UAH;
-  const inputValueCaption = `Amount in ${('' + inputCurrency).toUpperCase()}:`;
 
   return (
     <div>
       <h1 align="center">Currency Exchange</h1>
       <CompTable
-        header={['Currency', 'Buy', 'Sell']}
+        header={currencyTableHeader}
         body={exchangeRates}
-        columnNames={[OPERATION.BUY, OPERATION.SELL]}
+        columnNames={currencyTableColumnNames}
       />
       <CompDropDown
-        listValues={Object.keys(exchangeRates)}
+        listValues={currencyList}
         selectedValue={selectedCurrency}
         onValueSelected={handleCurrencyChange}
       />
@@ -86,11 +67,9 @@ function App() {
       <CompValueInput
         value={amount}
         caption={inputValueCaption}
-        onValueChange={handleAmountChange}
+        handleChange={handleAmountChange}
       />
-      <p>
-        Equals: {convertedAmount} {isSell ? localCurrency.toUpperCase() : selectedCurrency}
-      </p>
+      <p>Equals: {convertionResStr}</p>
     </div>
   );
 }

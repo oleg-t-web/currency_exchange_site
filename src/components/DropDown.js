@@ -1,8 +1,11 @@
+import { useMemo } from 'react';
+
 const CompDropDown = ({ selectedValue, listValues, onValueSelected }) => {
   const handleChange = (e) => {
     onValueSelected(e.target.value);
   };
-  const getSelectList = () => {
+  const getSelectList = useMemo(() => {
+    console.log('getSelectList Called');
     const children = [];
     for (let i = 0; i < listValues.length; ++i) {
       children.push(<option value={listValues[i]}>{listValues[i].toUpperCase()}</option>);
@@ -12,9 +15,9 @@ const CompDropDown = ({ selectedValue, listValues, onValueSelected }) => {
         {children}
       </select>
     );
-  };
+  }, [selectedValue]);
 
-  return getSelectList();
+  return getSelectList;
 };
 
 export default CompDropDown;

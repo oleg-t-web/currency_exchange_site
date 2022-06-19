@@ -1,12 +1,12 @@
-const CompValueInput = ({ value, caption, onValueChange }) => {
-  const handleChange = (e) => {
-    onValueChange(e.target.value);
+const CompValueInput = ({ value, caption, handleChange }) => {
+  const onChange = (e) => {
+    handleChange(e.target.value);
   };
 
   return (
     <div>
       <legend>{caption}</legend>
-      <input value={value} onChange={handleChange} />
+      <input value={value} onChange={onChange} />
     </div>
   );
 };
