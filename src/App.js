@@ -5,42 +5,40 @@ import { useState } from 'react';
 //import CompDropDown from './components/DropDown';
 //import CompValueInput from './components/ValueInput';
 //import CompTable from './components/table/Table';
-import { OPERATION, CURRENCY } from './CurrencyConstants';
+import { OPERATIONS, CURRENCY } from './CurrencyConstants';
 import { tryConvert } from './helpers/TryConvertCurrency';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { TextField } from '@mui/material';
 import MuiTable from './components/muiTable/MuiTable';
 import MuiDropDown from './components/MuiDropDown';
+import MUIRadioGroup from './components/muiRadioGroup/MUIRadioGroup';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
-    [OPERATION.BUY]: 35.55,
-    [OPERATION.SELL]: 35.05
+    [OPERATIONS.BUY]: 35.55,
+    [OPERATIONS.SELL]: 35.05
   },
   [CURRENCY.EUR]: {
-    [OPERATION.BUY]: 38.6,
-    [OPERATION.SELL]: 38.2
+    [OPERATIONS.BUY]: 38.6,
+    [OPERATIONS.SELL]: 38.2
   },
   [CURRENCY.GBR]: {
-    [OPERATION.BUY]: 41.3,
-    [OPERATION.SELL]: 41.1
+    [OPERATIONS.BUY]: 41.3,
+    [OPERATIONS.SELL]: 41.1
   }
 };
 const currencyList = Object.keys(exchangeRates);
 function App() {
-  const [buySell, setBuySell] = useState(OPERATION.BUY);
+  const [buySell, setBuySell] = useState(OPERATIONS.BUY);
   const [amount, setAmount] = useState('1');
   const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY.USD);
 
-  const isSell = buySell === OPERATION.SELL;
+  const isSell = buySell === OPERATIONS.SELL;
   const convertedAmount = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
   const inputCurrency = isSell ? selectedCurrency.toUpperCase() : CURRENCY.UAH;
   const localCurrency = CURRENCY.UAH;
   const inputValueCaption = `Amount in ${('' + inputCurrency).toUpperCase()}:`;
   const currencyTableHeader = ['Currency', 'Buy', 'Sell'];
-  const currencyTableColumnNames = [OPERATION.BUY, OPERATION.SELL];
+  const currencyTableColumnNames = [OPERATIONS.BUY, OPERATIONS.SELL];
   const convertionResStr = `Equals: ${convertedAmount} ${
     isSell ? localCurrency.toUpperCase() : selectedCurrency
   }`;
@@ -66,15 +64,11 @@ function App() {
           listValues={currencyList}
           handleValueSelected={handleCurrencyChange}
         />
-
-        <RadioGroup
+        <MUIRadioGroup
           className="buySell"
-          row
-          value={buySell}
-          onChange={(e) => setBuySell(e.target.value)}>
-          <FormControlLabel value={OPERATION.BUY} control={<Radio />} label={OPERATION.BUY} />
-          <FormControlLabel value={OPERATION.SELL} control={<Radio />} label={OPERATION.SELL} />
-        </RadioGroup>
+          currentValue={buySell}
+          valuesList={OPERATIONS}
+          handleValueChange={setBuySell}></MUIRadioGroup>
       </div>
       <p>
         <TextField

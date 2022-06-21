@@ -1,4 +1,4 @@
-export const OPERATION = {
+export const OPERATIONS = {
   BUY: 'BUY',
   SELL: 'SELL'
 };

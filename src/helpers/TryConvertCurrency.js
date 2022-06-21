@@ -1,4 +1,4 @@
-import { OPERATION } from '../CurrencyConstants';
+import { OPERATIONS } from '../CurrencyConstants';
 
 export function tryConvert(amount, currency, isSell, exchangeRates) {
   const input = parseFloat(+amount);
@@ -7,8 +7,8 @@ export function tryConvert(amount, currency, isSell, exchangeRates) {
   }
 
   const coef = isSell
-    ? exchangeRates[currency][OPERATION.SELL]
-    : exchangeRates[currency][OPERATION.BUY];
+    ? exchangeRates[currency][OPERATIONS.SELL]
+    : exchangeRates[currency][OPERATIONS.BUY];
 
   const output = isSell ? amount * coef : amount / coef;
   const rounded = output.toFixed(4);
