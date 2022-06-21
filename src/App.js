@@ -10,8 +10,9 @@ import { tryConvert } from './helpers/TryConvertCurrency';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { TextField, MenuItem } from '@mui/material';
+import { TextField } from '@mui/material';
 import MuiTable from './components/muiTable/MuiTable';
+import MuiDropDown from './components/MuiDropDown';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
@@ -60,19 +61,12 @@ function App() {
         columnNames={currencyTableColumnNames}
       />
       <div className="currencySelector">
-        <TextField
-          select
-          value={selectedCurrency}
-          onChange={(e) => {
-            handleCurrencyChange(e.target.value);
-          }}
-          size="small">
-          {Object.values(currencyList).map((val) => (
-            <MenuItem key={val} value={val}>
-              {val}
-            </MenuItem>
-          ))}
-        </TextField>
+        <MuiDropDown
+          selectedValue={selectedCurrency}
+          listValues={currencyList}
+          handleValueSelected={handleCurrencyChange}
+        />
+
         <RadioGroup
           className="buySell"
           row
