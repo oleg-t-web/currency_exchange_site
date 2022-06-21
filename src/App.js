@@ -4,15 +4,14 @@ import { useState } from 'react';
 //import CompButton from './components/Buttons';
 //import CompDropDown from './components/DropDown';
 //import CompValueInput from './components/ValueInput';
-import CompTable from './components/table/Table';
+//import CompTable from './components/table/Table';
 import { OPERATION, CURRENCY } from './CurrencyConstants';
 import { tryConvert } from './helpers/TryConvertCurrency';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { TextField, MenuItem } from '@mui/material';
-//import { TextField } from '@mui/material';
-//import CompMenuItemsList from './components/MenuItemsList';
+import MuiTable from './components/muiTable/MuiTable';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
@@ -51,15 +50,11 @@ function App() {
   const handleCurrencyChange = (selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);
   };
-  // const handleBuySellState = () => {
-  //   const state = buySell === OPERATION.BUY ? OPERATION.SELL : OPERATION.BUY;
-  //   setBuySell(state);
-  // };
 
   return (
     <div>
       <h1 align="center">Currency Exchange</h1>
-      <CompTable
+      <MuiTable
         header={currencyTableHeader}
         body={exchangeRates}
         columnNames={currencyTableColumnNames}
@@ -78,33 +73,26 @@ function App() {
             </MenuItem>
           ))}
         </TextField>
-        {/* <CompDropDown
-          listValues={currencyList}
-          selectedValue={selectedCurrency}
-          handleValueSelected={handleCurrencyChange}
-        /> */}
         <RadioGroup
           className="buySell"
           row
           value={buySell}
           onChange={(e) => setBuySell(e.target.value)}>
-          <FormControlLabel value={OPERATION.BUY} control={<Radio />} label="Buy" />
-          <FormControlLabel value={OPERATION.SELL} control={<Radio />} label="Sell" />
+          <FormControlLabel value={OPERATION.BUY} control={<Radio />} label={OPERATION.BUY} />
+          <FormControlLabel value={OPERATION.SELL} control={<Radio />} label={OPERATION.SELL} />
         </RadioGroup>
       </div>
-      {/* <CompValueInput
-        value={amount}
-        caption={inputValueCaption}
-        handleChange={handleAmountChange}
-      /> */}
-      <p>{inputValueCaption}</p>
-      <TextField
-        value={amount}
-        onChange={(e) => {
-          handleAmountChange(e.target.value);
-        }}
-        size="small"
-      />
+      <p>
+        <TextField
+          label={inputValueCaption}
+          value={amount}
+          variant="standard"
+          onChange={(e) => {
+            handleAmountChange(e.target.value);
+          }}
+          size="small"
+        />
+      </p>
 
       <p> {convertionResStr}</p>
     </div>
