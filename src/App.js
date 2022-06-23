@@ -7,7 +7,7 @@ import { useState } from 'react';
 //import CompTable from './components/table/Table';
 import { OPERATIONS, CURRENCY } from './CurrencyConstants';
 import { tryConvert } from './helpers/TryConvertCurrency';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import MuiTable from './components/muiTable/MuiTable';
 import MuiDropDown from './components/MuiDropDown';
 import MUIRadioGroup from './components/muiRadioGroup/MUIRadioGroup';
@@ -70,7 +70,7 @@ function App() {
           valuesList={OPERATIONS}
           handleValueChange={setBuySell}></MUIRadioGroup>
       </div>
-      <p>
+      <Box className="inputField">
         <TextField
           label={inputValueCaption}
           value={amount}
@@ -80,7 +80,7 @@ function App() {
           }}
           size="small"
         />
-      </p>
+      </Box>
 
       <p> {convertionResStr}</p>
     </div>

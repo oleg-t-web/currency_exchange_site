@@ -2,7 +2,7 @@
   text-align: center;
 }
 .currencySelector {
-  margin: 10px 10px 1px 10px;
+  margin: 10px 10px 10px 10px;
   width: 500px;
   display: flex;
   flex-direction: row;
@@ -10,4 +10,7 @@
 }
 .buySell {
   margin: 1px 1px 1px 10px;
+}
+.inputField {
+  margin: 20px 5px 5px 10px;
 }
