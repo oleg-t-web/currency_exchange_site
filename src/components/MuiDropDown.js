@@ -21,7 +21,7 @@ const MuiDropDown = ({ selectedValue, listValues, handleValueSelected }) => {
 
 MuiDropDown.propTypes = {
   selectedValue: PropTypes.string,
-  listValues: PropTypes.object,
+  listValues: PropTypes.array,
   handleValueSelected: PropTypes.func
 };
 

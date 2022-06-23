@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 const TableRowCells = ({ values }) => {
   const rows = [];
-  values.map((val) => {
-    rows.push(<TableCell>{val}</TableCell>);
+  values.map((val, i) => {
+    rows.push(<TableCell key={i}>{val}</TableCell>);
   });
   return <TableRow>{rows}</TableRow>;
 };

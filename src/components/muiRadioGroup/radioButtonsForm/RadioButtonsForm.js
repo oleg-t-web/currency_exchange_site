@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 const RadioButtonsForm = ({ valuesList }) => {
   const buttonsList = [];
   Object.keys(valuesList).map((key) => {
-    buttonsList.push(<FormControlLabel value={valuesList[key]} control={<Radio />} label={key} />);
+    buttonsList.push(
+      <FormControlLabel key={key} value={valuesList[key]} control={<Radio />} label={key} />
+    );
   });
   return buttonsList;
 };

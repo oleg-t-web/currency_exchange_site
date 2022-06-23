@@ -8,7 +8,7 @@ const TableRows = ({ values, columnNames }) => {
     columnNames.map((val) => {
       tableColumns.push(values[key][val]);
     });
-    table.push(<TableRowCells values={tableColumns} />);
+    table.push(<TableRowCells key={key} values={tableColumns} />);
   }
   return table;
 };
