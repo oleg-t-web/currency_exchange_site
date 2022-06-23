@@ -14,3 +14,12 @@
 .inputField {
   margin: 20px 5px 5px 10px;
 }
+.commitButtton {
+  margin: 20px 5px 30px 10px;
+}
+.transactionHistoryList {
+  float: right;
+  margin-right: 10%;
+  display: inline-block;
+  vertical-align: top; /* here */
+}

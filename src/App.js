@@ -7,10 +7,11 @@ import { useState } from 'react';
 //import CompTable from './components/table/Table';
 import { OPERATIONS, CURRENCY } from './CurrencyConstants';
 import { tryConvert } from './helpers/TryConvertCurrency';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import MuiTable from './components/muiTable/MuiTable';
 import MuiDropDown from './components/MuiDropDown';
 import MUIRadioGroup from './components/muiRadioGroup/MUIRadioGroup';
+import TransactionHistoryList from './components/TransactionHistoryList';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
@@ -31,6 +32,8 @@ function App() {
   const [buySell, setBuySell] = useState(OPERATIONS.BUY);
   const [amount, setAmount] = useState('1');
   const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY.USD);
+  // eslint-disable-next-line no-unused-vars
+  const [transactionHistory, setTransactionHistory] = useState([]);
 
   const isSell = buySell === OPERATIONS.SELL;
   const convertedAmount = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
@@ -42,6 +45,7 @@ function App() {
   const convertionResStr = `Equals: ${convertedAmount} ${
     isSell ? localCurrency.toUpperCase() : selectedCurrency
   }`;
+  const commitEnabled = +convertedAmount > 0;
 
   const handleAmountChange = (amount) => {
     setAmount(amount);
@@ -49,15 +53,31 @@ function App() {
   const handleCurrencyChange = (selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);
   };
+  const handleCommit = () => {
+    const transaction = {
+      operation: buySell,
+      currency: selectedCurrency,
+      amount: +amount,
+      date: new Date().toJSON()
+    };
+    setTransactionHistory((prev) => [...prev, transaction]);
+    setAmount('');
+    console.log(JSON.stringify(transaction));
+  };
 
   return (
     <div>
       <h1 align="center">Currency Exchange</h1>
+      <Box className="transactionHistoryList">
+        <TransactionHistoryList
+          values={transactionHistory.slice().reverse()}></TransactionHistoryList>
+      </Box>
       <MuiTable
         header={currencyTableHeader}
         body={exchangeRates}
         columnNames={currencyTableColumnNames}
       />
+
       <div className="currencySelector">
         <MuiDropDown
           selectedValue={selectedCurrency}
@@ -81,8 +101,14 @@ function App() {
           size="small"
         />
       </Box>
-
       <p> {convertionResStr}</p>
+      <Box className="commitButtton">
+        {commitEnabled && (
+          <Button onClick={handleCommit} variant="outlined">
+            Commit
+          </Button>
+        )}
+      </Box>
     </div>
   );
 }
