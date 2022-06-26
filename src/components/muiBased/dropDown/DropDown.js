@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@mui/material';
+import { useEffect } from 'react';
 
 const DropDown = ({ selectedValue, listValues, handleValueSelected }) => {
+  useEffect(() => {
+    console.log('DropDown created');
+  });
   return (
     <TextField
       select

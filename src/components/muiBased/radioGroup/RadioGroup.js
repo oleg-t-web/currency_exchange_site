@@ -1,8 +1,12 @@
 import { RadioGroup as MUIRadioGroup } from '@mui/material';
 import RadioButtonsForm from './radioButtonsForm/RadioButtonsForm';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 const RadioGroup = ({ currentValue, valuesList, handleValueChange }) => {
+  useEffect(() => {
+    console.log('RadioGroup created');
+  });
   return (
     <MUIRadioGroup row value={currentValue} onChange={(e) => handleValueChange(e.target.value)}>
       <RadioButtonsForm valuesList={valuesList} />

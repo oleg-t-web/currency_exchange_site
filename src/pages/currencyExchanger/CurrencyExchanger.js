@@ -6,7 +6,7 @@ import Table from '../../components/muiBased/table/Table';
 import DropDown from '../../components/muiBased/dropDown/DropDown';
 import RadioGroup from '../../components/muiBased/radioGroup/RadioGroup';
 import TransactionHistoryList from '../../components/muiBased/TransactionHistoryList';
-import useCurrencyExchanger from './useCurrencyExchanger';
+import useCurrencyExchanger from './helpers/useCurrencyExchanger';
 
 const exchangeRates = {
   [CURRENCY.USD]: {
@@ -47,45 +47,47 @@ function CurrencyExchanger() {
 
   return (
     <div>
-      <Box className="transactionHistoryList">
-        <TransactionHistoryList values={transactionHistoryList}></TransactionHistoryList>
-      </Box>
-      <Table
-        header={currencyTableHeader}
-        body={exchangeRates}
-        columnNames={currencyTableColumnNames}
-      />
-      <div className="currencySelector">
-        <DropDown
-          selectedValue={currency.selectedCurrency}
-          listValues={currencyList}
-          handleValueSelected={currency.onCurrencyChange}
+      <React.StrictMode>
+        <Box className="transactionHistoryList">
+          <TransactionHistoryList values={transactionHistoryList}></TransactionHistoryList>
+        </Box>
+        <Table
+          header={currencyTableHeader}
+          body={exchangeRates}
+          columnNames={currencyTableColumnNames}
         />
-        <RadioGroup
-          className="buySell"
-          currentValue={operation.buySell}
-          valuesList={OPERATIONS}
-          handleValueChange={operation.onBuySellChange}></RadioGroup>
-      </div>
-      <Box className="inputField">
-        <TextField
-          label={inputValueCaption}
-          value={inputVal.amount}
-          variant="standard"
-          onChange={(e) => {
-            inputVal.onAmountChange(e.target.value);
-          }}
-          size="small"
-        />
-      </Box>
-      <p> {convertionResStr}</p>
-      <Box className="commitButtton">
-        {commitEnabled && (
-          <Button onClick={onCommit} variant="outlined">
-            Commit
-          </Button>
-        )}
-      </Box>
+        <div className="currencySelector">
+          <DropDown
+            selectedValue={currency.selectedCurrency}
+            listValues={currencyList}
+            handleValueSelected={currency.onCurrencyChange}
+          />
+          <RadioGroup
+            className="buySell"
+            currentValue={operation.buySell}
+            valuesList={OPERATIONS}
+            handleValueChange={operation.onBuySellChange}></RadioGroup>
+        </div>
+        <Box className="inputField">
+          <TextField
+            label={inputValueCaption}
+            value={inputVal.amount}
+            variant="standard"
+            onChange={(e) => {
+              inputVal.onAmountChange(e.target.value);
+            }}
+            size="small"
+          />
+        </Box>
+        <p> {convertionResStr}</p>
+        <Box className="commitButtton">
+          {commitEnabled && (
+            <Button onClick={onCommit} variant="outlined">
+              Commit
+            </Button>
+          )}
+        </Box>
+      </React.StrictMode>
     </div>
   );
 }

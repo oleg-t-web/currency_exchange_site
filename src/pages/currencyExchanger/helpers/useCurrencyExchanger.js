@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { OPERATIONS, CURRENCY } from '../../CurrencyConstants';
+import { OPERATIONS, CURRENCY } from '../../../CurrencyConstants';
 import PropTypes from 'prop-types';
 
 const useCurrencyExchanger = (inputValue, currency, exchangeRates) => {
@@ -49,7 +49,7 @@ const useCurrencyExchanger = (inputValue, currency, exchangeRates) => {
   useEffect(() => {
     let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
     setConvertedAmount(conversionRes);
-  });
+  }, [amount, selectedCurrency, buySell]);
 
   return [
     { buySell, onBuySellChange },

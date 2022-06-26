@@ -2,8 +2,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 const TransactionHistoryList = ({ values }) => {
+  useEffect(() => {
+    console.log('Transaction history created');
+  });
   const list = [];
   values.map((transaction, i) => {
     const info = ` ${transaction.operation} ${transaction.amount}  ${transaction.currency}`;
