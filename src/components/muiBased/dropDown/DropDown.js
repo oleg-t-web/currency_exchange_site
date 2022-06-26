@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@mui/material';
 
-const MuiDropDown = ({ selectedValue, listValues, handleValueSelected }) => {
+const DropDown = ({ selectedValue, listValues, handleValueSelected }) => {
   return (
     <TextField
       select
@@ -19,10 +19,10 @@ const MuiDropDown = ({ selectedValue, listValues, handleValueSelected }) => {
   );
 };
 
-MuiDropDown.propTypes = {
+DropDown.propTypes = {
   selectedValue: PropTypes.string,
   listValues: PropTypes.array,
   handleValueSelected: PropTypes.func
 };
 
-export default MuiDropDown;
+export default DropDown;
