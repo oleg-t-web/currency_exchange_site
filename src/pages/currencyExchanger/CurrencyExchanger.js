@@ -1,5 +1,5 @@
 import './styles/exchanger.css';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { OPERATIONS, CURRENCY } from '../../CurrencyConstants';
 import { Box, Button, TextField } from '@mui/material';
 import Table from '../../components/muiBased/table/Table';
@@ -37,13 +37,20 @@ function CurrencyExchanger() {
   const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : CURRENCY.UAH;
   const localCurrency = CURRENCY.UAH;
   const inputValueCaption = `Amount in ${('' + inputCurrency).toUpperCase()}:`;
-  const currencyTableHeader = ['Currency', 'Buy', 'Sell'];
-  const currencyTableColumnNames = [OPERATIONS.BUY, OPERATIONS.SELL];
+  //const currencyTableHeader = ['Currency', 'Buy', 'Sell'];
+  //const currencyTableColumnNames = [OPERATIONS.BUY, OPERATIONS.SELL];
   const convertionResStr = `Equals: ${convertedAmount} ${
     isSell ? localCurrency.toUpperCase() : currency.selectedCurrency
   }`;
   const commitEnabled = Number(convertedAmount) > 0;
   const transactionHistoryList = history.transactionHistory.slice().reverse();
+  const getCurrencyTable = useMemo(() => {
+    return {
+      header: ['Currency', 'Buy', 'Sell'], //currencyTableHeader,
+      body: exchangeRates,
+      columnNames: [OPERATIONS.BUY, OPERATIONS.SELL]
+    };
+  }, [exchangeRates]);
 
   return (
     <div>
@@ -51,11 +58,7 @@ function CurrencyExchanger() {
         <Box className="transactionHistoryList">
           <TransactionHistoryList values={transactionHistoryList}></TransactionHistoryList>
         </Box>
-        <Table
-          header={currencyTableHeader}
-          body={exchangeRates}
-          columnNames={currencyTableColumnNames}
-        />
+        <Table {...getCurrencyTable} />
         <div className="currencySelector">
           <DropDown
             selectedValue={currency.selectedCurrency}

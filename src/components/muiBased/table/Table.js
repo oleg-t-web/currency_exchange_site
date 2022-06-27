@@ -9,28 +9,22 @@ import TableRows from './tableRows/TableRows';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
-const Table = React.memo(
-  ({ header, body, columnNames }) => {
-    useEffect(() => {
-      console.log('Table created');
-    });
-    return (
-      <MuiTable aria-label="simple table" size="medium" style={{ width: 500 }}>
-        <MuiTableHead>
-          <TableRowCells values={header} />
-        </MuiTableHead>
-        <MuiTableBody>
-          <TableRows values={body} columnNames={columnNames} />
-        </MuiTableBody>
-      </MuiTable>
-    );
-  },
-  (prewProps, nextProps) => {
-    const isEqual = JSON.stringify(prewProps) === JSON.stringify(nextProps);
-    // console.log('Compare>', isEqual);
-    return isEqual;
-  }
-);
+const Table = React.memo(({ header, body, columnNames }) => {
+  useEffect(() => {
+    console.log('Table created');
+  });
+
+  return (
+    <MuiTable aria-label="simple table" size="medium" style={{ width: 500 }}>
+      <MuiTableHead>
+        <TableRowCells values={header} />
+      </MuiTableHead>
+      <MuiTableBody>
+        <TableRows values={body} columnNames={columnNames} />
+      </MuiTableBody>
+    </MuiTable>
+  );
+});
 
 Table.propTypes = {
   header: PropTypes.array,
