@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { OPERATIONS, CURRENCY } from '../../../CurrencyConstants';
 import PropTypes from 'prop-types';
 
@@ -25,15 +25,15 @@ const useCurrencyExchanger = (inputValue, currency, exchangeRates) => {
     return rounded.toString().slice(0, -2);
   };
 
-  const onBuySellChange = (operation) => {
+  const onBuySellChange = useCallback((operation) => {
     setBuySell(operation);
-  };
+  }, []);
   const onAmountChange = (amount) => {
     setAmount(amount);
   };
-  const onCurrencyChange = (selectedCurrency) => {
+  const onCurrencyChange = useCallback((selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);
-  };
+  }, []);
   const onCommit = () => {
     const transaction = {
       operation: buySell,

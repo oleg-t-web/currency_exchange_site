@@ -43,7 +43,9 @@ function CurrencyExchanger() {
     isSell ? localCurrency.toUpperCase() : currency.selectedCurrency
   }`;
   const commitEnabled = Number(convertedAmount) > 0;
-  const transactionHistoryList = history.transactionHistory.slice().reverse();
+  const transactionHistoryList = useMemo(() => {
+    return history.transactionHistory.slice().reverse();
+  }, [history.transactionHistory.length]); // is it correct?
   const getCurrencyTable = useMemo(() => {
     return {
       header: ['Currency', 'Buy', 'Sell'], //currencyTableHeader,

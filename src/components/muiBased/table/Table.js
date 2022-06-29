@@ -32,4 +32,5 @@ Table.propTypes = {
   columnNames: PropTypes.array
 };
 Table.displayName = 'Table';
+Table.whyDidYouRender = true;
 export default Table;
