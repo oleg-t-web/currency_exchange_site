@@ -25,8 +25,6 @@ const exchangeRates = {
 const currencyList = Object.keys(exchangeRates);
 
 function CurrencyExchanger() {
-  //const exchanger = useCurrencyExchanger('1', CURRENCY.USD, exchangeRates);
-
   const [operation, inputVal, currency, history, convertedAmount, onCommit] = useCurrencyExchanger(
     '1',
     CURRENCY.USD,
@@ -37,18 +35,16 @@ function CurrencyExchanger() {
   const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : CURRENCY.UAH;
   const localCurrency = CURRENCY.UAH;
   const inputValueCaption = `Amount in ${('' + inputCurrency).toUpperCase()}:`;
-  //const currencyTableHeader = ['Currency', 'Buy', 'Sell'];
-  //const currencyTableColumnNames = [OPERATIONS.BUY, OPERATIONS.SELL];
   const convertionResStr = `Equals: ${convertedAmount} ${
     isSell ? localCurrency.toUpperCase() : currency.selectedCurrency
   }`;
   const commitEnabled = Number(convertedAmount) > 0;
   const transactionHistoryList = useMemo(() => {
     return history.transactionHistory.slice().reverse();
-  }, [history.transactionHistory.length]); // is it correct?
+  }, [history.transactionHistory.length]);
   const getCurrencyTable = useMemo(() => {
     return {
-      header: ['Currency', 'Buy', 'Sell'], //currencyTableHeader,
+      header: ['Currency', 'Buy', 'Sell'],
       body: exchangeRates,
       columnNames: [OPERATIONS.BUY, OPERATIONS.SELL]
     };
