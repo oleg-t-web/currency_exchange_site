@@ -81,7 +81,7 @@ function CurrencyExchanger() {
             size="small"
           />
         </Box>
-        <p> {convertionResStr}</p>
+        <p data-testid="conversionResStr"> {convertionResStr}</p>
         <Box className="commitButtton">
           {commitEnabled && (
             <Button onClick={onCommit} variant="outlined">
