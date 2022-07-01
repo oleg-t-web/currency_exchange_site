@@ -71,6 +71,7 @@ function CurrencyExchanger() {
         </div>
         <Box className="inputField">
           <TextField
+            inputProps={{ 'data-testid': 'amountInput' }}
             label={inputValueCaption}
             value={inputVal.amount}
             variant="standard"
