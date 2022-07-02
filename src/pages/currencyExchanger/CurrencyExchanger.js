@@ -54,7 +54,9 @@ function CurrencyExchanger() {
     <div>
       <React.StrictMode>
         <Box className="transactionHistoryList">
-          <TransactionHistoryList values={transactionHistoryList}></TransactionHistoryList>
+          <TransactionHistoryList
+            data-testid="transactionHistory"
+            values={transactionHistoryList}></TransactionHistoryList>
         </Box>
         <Table {...getCurrencyTable} />
         <div className="currencySelector">
@@ -84,7 +86,7 @@ function CurrencyExchanger() {
         <p data-testid="conversionResStr"> {convertionResStr}</p>
         <Box className="commitButtton">
           {commitEnabled && (
-            <Button onClick={onCommit} variant="outlined">
+            <Button data-testid="commitButton" onClick={onCommit} variant="outlined">
               Commit
             </Button>
           )}

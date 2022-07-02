@@ -14,7 +14,7 @@ const TransactionHistoryList = React.memo(({ values }) => {
     const info = ` ${transaction.operation} ${transaction.amount}  ${transaction.currency}`;
     const date = transaction.date.slice(0, 19).replace(/-/g, '/').replace('T', ' ');
     list.push(
-      <ListItem key={i} alignItems="flex-start">
+      <ListItem key={i} alignItems="flex-start" data-testid="transactionRecord">
         <ListItemText primary={info} secondary={date} />
       </ListItem>
     );
