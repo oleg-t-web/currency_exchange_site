@@ -1,14 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
-import { OPERATIONS, CURRENCY } from '../../../CurrencyConstants';
+import { useCallback, useEffect, useState, useMemo } from 'react';
+import { OPERATIONS, CURRENCY } from './CurrencyConstants';
 import PropTypes from 'prop-types';
+import getExchangeRates from './getExchangeRates';
 
-const useCurrencyExchanger = (inputValue, currency, exchangeRates) => {
-  const [buySell, setBuySell] = useState(OPERATIONS.BUY);
-  const [amount, setAmount] = useState(inputValue);
-  const [selectedCurrency, setSelectedCurrency] = useState(currency);
+const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) => {
+  const [buySell, setBuySell] = useState(initialOperation);
+  const [amount, setAmount] = useState(initialValue);
+  const [selectedCurrency, setSelectedCurrency] = useState(initialCurrency);
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [convertedAmount, setConvertedAmount] = useState('');
 
+  const exchangeRates = useMemo(getExchangeRates, []);
+  const currencyList = useMemo(() => Object.keys(exchangeRates), []);
   const isSell = buySell === OPERATIONS.SELL;
 
   const tryConvert = (amount, currency, isSell, exchangeRates) => {
@@ -56,6 +59,8 @@ const useCurrencyExchanger = (inputValue, currency, exchangeRates) => {
     { amount, onAmountChange },
     { selectedCurrency, onCurrencyChange },
     { transactionHistory },
+    exchangeRates,
+    currencyList,
     convertedAmount,
     onCommit
   ];

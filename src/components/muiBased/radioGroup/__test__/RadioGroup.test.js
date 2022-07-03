@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { OPERATIONS } from '../../../../CurrencyConstants';
+import { OPERATIONS } from '../../../../pages/currencyExchanger/helpers/CurrencyConstants';
 import userEvent from '@testing-library/user-event';
 import RadioGroup from '../RadioGroup';
 

@@ -1,7 +1,8 @@
 import { fireEvent, getAllByRole, getAllByTestId, render, screen } from '@testing-library/react';
 import CurrencyExchanger from '../CurrencyExchanger';
-import { CURRENCY, OPERATIONS } from '../../../CurrencyConstants';
+import { CURRENCY, OPERATIONS } from '../helpers/CurrencyConstants';
 import userEvent from '@testing-library/user-event';
+import { INITIAL_VALUES } from '../../helpers/initialValues';
 
 // test('enable to change amount input', () => {
 //   render(<CurrencyExchanger />);
@@ -12,8 +13,8 @@ import userEvent from '@testing-library/user-event';
 // });
 
 describe('initial render', () => {
-  test('check initial conditions when empty placeholder button invisible', () => {
-    render(<CurrencyExchanger />);
+  test('check initial conditions when empty placeholder,  button  and transaction history invisible', () => {
+    render(<CurrencyExchanger {...INITIAL_VALUES} />);
     expect(screen.getByTestId('amountInput').value).toBe('');
     expect(screen.queryByTestId('commitButton')).toBe(null);
     expect(screen.getByText(/Equals: 0.00/i)).toBeInTheDocument();
@@ -38,7 +39,7 @@ const commitTransactions = (list) => {
 
 describe('conveertions', () => {
   test('Buy usd conversion', () => {
-    render(<CurrencyExchanger />);
+    render(<CurrencyExchanger {...INITIAL_VALUES} />);
     const currency = CURRENCY.USD;
     const coef = 35.55;
     const userInput = 100;
@@ -57,7 +58,7 @@ describe('conveertions', () => {
 
 describe('transaction', () => {
   test('add transaction record on commit', () => {
-    render(<CurrencyExchanger />);
+    render(<CurrencyExchanger {...INITIAL_VALUES} />);
 
     const userInput = [
       { operation: OPERATIONS.SELL, currency: CURRENCY.USD, amount: 100 },
