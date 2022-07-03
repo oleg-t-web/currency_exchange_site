@@ -26,7 +26,7 @@ const currencyList = Object.keys(exchangeRates);
 
 function CurrencyExchanger() {
   const [operation, inputVal, currency, history, convertedAmount, onCommit] = useCurrencyExchanger(
-    '1',
+    '',
     CURRENCY.USD,
     exchangeRates
   );

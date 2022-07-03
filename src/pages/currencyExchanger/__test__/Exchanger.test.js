@@ -11,6 +11,16 @@ import userEvent from '@testing-library/user-event';
 //   expect(inputElement.value).toBe('123');
 // });
 
+describe('initial render', () => {
+  test('check initial conditions when empty placeholder button invisible', () => {
+    render(<CurrencyExchanger />);
+    expect(screen.getByTestId('amountInput').value).toBe('');
+    expect(screen.queryByTestId('commitButton')).toBe(null);
+    expect(screen.getByText(/Equals: 0.00/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('transactionHistory')).toBe(null);
+  });
+});
+
 const commitTransactions = (list) => {
   //[{operation, currency, amount}]
 
