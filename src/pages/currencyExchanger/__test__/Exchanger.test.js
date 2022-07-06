@@ -3,6 +3,7 @@ import CurrencyExchanger from '../CurrencyExchanger';
 import { CURRENCY, OPERATIONS } from '../helpers/CurrencyConstants';
 import userEvent from '@testing-library/user-event';
 import { INITIAL_VALUES } from '../../helpers/initialValues';
+import { EXCHANGE_RATES } from './testValues';
 
 // test('enable to change amount input', () => {
 //   render(<CurrencyExchanger />);
@@ -19,6 +20,7 @@ describe('initial render', () => {
     expect(screen.queryByTestId('commitButton')).toBe(null);
     expect(screen.getByText(/Equals: 0.00/i)).toBeInTheDocument();
     expect(screen.queryByTestId('transactionHistory')).toBe(null);
+    expect(screen.getByTestId('currencySelector').value).toBe(INITIAL_VALUES.initialCurrncy);
   });
 });
 
@@ -40,16 +42,19 @@ const commitTransactions = (list) => {
 describe('conveertions', () => {
   test('Buy usd conversion', () => {
     render(<CurrencyExchanger {...INITIAL_VALUES} />);
-    const currency = CURRENCY.USD;
-    const coef = 35.55;
+    const pickedCurrency = CURRENCY.EUR; //INITIAL_VALUES.initialCurrncy;
+    const pickedOperation = OPERATIONS.BUY;
+    const coef = EXCHANGE_RATES[pickedCurrency][pickedOperation]; //35.55;
     const userInput = 100;
     const valueInput = screen.getByTestId('amountInput');
-    const buyButton = screen.getByRole('radio', { name: OPERATIONS.BUY });
+    const buyButton = screen.getByRole('radio', { name: pickedOperation });
     //const sellButton = screen.getByRole('radio', { name:  OPERATIONS.SELL });
+
+    fireEvent.change(screen.getByTestId('currencySelector'), { target: { value: pickedCurrency } });
 
     userEvent.click(buyButton, { button: 0 });
     fireEvent.change(valueInput, { target: { value: userInput } });
-    const expectedOutput = `Equals: ${(userInput / coef).toFixed(2)} ${currency}`;
+    const expectedOutput = `Equals: ${(userInput / coef).toFixed(2)} ${pickedCurrency}`;
     const resultOutput = screen.getByText(expectedOutput);
 
     expect(resultOutput).toBeInTheDocument();

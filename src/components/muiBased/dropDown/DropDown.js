@@ -9,6 +9,7 @@ const DropDown = React.memo(({ selectedValue, listValues, handleValueSelected })
   });
   return (
     <TextField
+      inputProps={{ 'data-testid': 'currencySelector' }}
       select
       value={selectedValue}
       onChange={(e) => {

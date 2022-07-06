@@ -1,0 +1,15 @@
+import { CURRENCY, OPERATIONS } from '../helpers/CurrencyConstants';
+export const EXCHANGE_RATES = {
+  [CURRENCY.USD]: {
+    [OPERATIONS.BUY]: 35.55,
+    [OPERATIONS.SELL]: 35.05
+  },
+  [CURRENCY.EUR]: {
+    [OPERATIONS.BUY]: 38.6,
+    [OPERATIONS.SELL]: 38.2
+  },
+  [CURRENCY.GBR]: {
+    [OPERATIONS.BUY]: 41.3,
+    [OPERATIONS.SELL]: 41.1
+  }
+};
