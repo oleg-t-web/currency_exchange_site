@@ -59,7 +59,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     { amount, onAmountChange },
     { selectedCurrency, onCurrencyChange },
     { transactionHistory },
-    exchangeRates,
+    // exchangeRates,
     currencyList,
     convertedAmount,
     onCommit
@@ -76,9 +76,9 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
 };
 
 useCurrencyExchanger.propTypes = {
-  inputValue: PropTypes.string.isRequired,
-  currency: PropTypes.oneOf(Object.values(CURRENCY)).isRequired,
-  exchangeRates: PropTypes.arrayOf(PropTypes.object).isRequired
+  initialValue: PropTypes.string,
+  initialCurrency: PropTypes.oneOf(Object.values(CURRENCY)),
+  initialOperation: PropTypes.oneOf(Object.values(OPERATIONS))
 };
 
 export default useCurrencyExchanger;

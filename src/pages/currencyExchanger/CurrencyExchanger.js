@@ -1,5 +1,5 @@
 import './styles/exchanger.css';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { OPERATIONS, CURRENCY } from './helpers/CurrencyConstants';
 import { Box, Button, TextField } from '@mui/material';
 import Table from '../../components/muiBased/table/Table';
@@ -7,18 +7,30 @@ import DropDown from '../../components/muiBased/dropDown/DropDown';
 import RadioGroup from '../../components/muiBased/radioGroup/RadioGroup';
 import TransactionHistoryList from '../../components/muiBased/TransactionHistoryList';
 import useCurrencyExchanger from './helpers/useCurrencyExchanger';
+import getExchangeRates from './helpers/getExchangeRates';
 
 function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) {
+  const [exchangeRates, setExchangeRates] = useState({});
   const [
     operation,
     inputVal,
     currency,
     history,
-    exchangeRates,
+    //exchangeRates,
     currencyList,
     convertedAmount,
     onCommit
-  ] = useCurrencyExchanger(initialAmount, initialCurrncy, initialOperation);
+  ] = useCurrencyExchanger(initialAmount, initialCurrncy, initialOperation, exchangeRates);
+
+  useEffect(() => {
+    // getExchangeRates();
+    // console.log('>>>>>');
+    // getExchangeRates.then((result) => {
+    //   console.log('>>>>>', result);
+    //   setExchangeRates(result);
+    // });
+    setExchangeRates(getExchangeRates());
+  }, []);
 
   const isSell = operation.buySell === OPERATIONS.SELL;
   const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : CURRENCY.UAH;
