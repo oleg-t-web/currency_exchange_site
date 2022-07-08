@@ -1,5 +1,5 @@
 import './styles/exchanger.css';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { OPERATIONS, CURRENCY } from './helpers/CurrencyConstants';
 import { Box, Button, TextField } from '@mui/material';
 import Table from '../../components/muiBased/table/Table';
@@ -7,30 +7,29 @@ import DropDown from '../../components/muiBased/dropDown/DropDown';
 import RadioGroup from '../../components/muiBased/radioGroup/RadioGroup';
 import TransactionHistoryList from '../../components/muiBased/TransactionHistoryList';
 import useCurrencyExchanger from './helpers/useCurrencyExchanger';
-import getExchangeRates from './helpers/getExchangeRates';
+import WaitIndicator from '../../components/muiBased/waitIndicator/WaitIndicator';
+//import getExchangeRates from './helpers/getExchangeRates';
 
 function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) {
-  const [exchangeRates, setExchangeRates] = useState({});
   const [
     operation,
     inputVal,
     currency,
     history,
-    //exchangeRates,
+    exchangeRates,
     currencyList,
     convertedAmount,
-    onCommit
-  ] = useCurrencyExchanger(initialAmount, initialCurrncy, initialOperation, exchangeRates);
+    onCommit,
+    loading
+  ] = useCurrencyExchanger(initialAmount, initialCurrncy, initialOperation);
 
-  useEffect(() => {
-    // getExchangeRates();
-    // console.log('>>>>>');
-    // getExchangeRates.then((result) => {
-    //   console.log('>>>>>', result);
-    //   setExchangeRates(result);
-    // });
-    setExchangeRates(getExchangeRates());
-  }, []);
+  // useEffect(() => {
+  //   console.log('Exchanger rendered');
+  //   loadExchangeRates('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json')
+  //     .then((rates) => setExchangeRates(prepareRates(rates)))
+  //     .catch((err) => console.log('Error> ', err));
+  //   //setExchangeRates(getExchangeRates());
+  // }, []);
 
   const isSell = operation.buySell === OPERATIONS.SELL;
   const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : CURRENCY.UAH;
@@ -54,6 +53,12 @@ function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) 
   return (
     <div>
       <React.StrictMode>
+        {loading.completed && <WaitIndicator />}
+        {loading.message && (
+          <div className="errorMessage">
+            <h2> {loading.message}</h2>
+          </div>
+        )}
         <Box className="transactionHistoryList">
           <TransactionHistoryList
             data-testid="transactionHistory"

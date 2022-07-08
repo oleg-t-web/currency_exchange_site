@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
-import { OPERATIONS, CURRENCY } from './CurrencyConstants';
+import { OPERATIONS, CURRENCY, EXCHANGECURRENCY } from './CurrencyConstants';
 import PropTypes from 'prop-types';
-import getExchangeRates from './getExchangeRates';
+import loadExchangeRates, { ENDPOINTS } from './loadExchangeRates';
 
 const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) => {
   const [buySell, setBuySell] = useState(initialOperation);
@@ -9,9 +9,9 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   const [selectedCurrency, setSelectedCurrency] = useState(initialCurrency);
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [convertedAmount, setConvertedAmount] = useState('');
-
-  const exchangeRates = useMemo(getExchangeRates, []);
-  const currencyList = useMemo(() => Object.keys(exchangeRates), []);
+  const [exchangeRates, setExchangeRates] = useState({});
+  const [loading, setLoading] = useState({ completed: false, message: '' });
+  const currencyList = useMemo(() => EXCHANGECURRENCY, []);
   const isSell = buySell === OPERATIONS.SELL;
 
   const tryConvert = (amount, currency, isSell, exchangeRates) => {
@@ -48,10 +48,45 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     setAmount('');
     console.log(JSON.stringify(transaction));
   };
+  const prepareRates = (rates) => {
+    const filteredCurrencyList = rates.filter((currencyInfo) =>
+      Object.prototype.hasOwnProperty.call(CURRENCY, currencyInfo.cc)
+    );
+    const preparedRates = {};
+    filteredCurrencyList.map((currencyInfo) => {
+      preparedRates[currencyInfo.cc] = {
+        [OPERATIONS.BUY]: currencyInfo.rate,
+        [OPERATIONS.SELL]: (currencyInfo.rate * 1.1).toFixed(4)
+      };
+    });
+
+    return preparedRates;
+  };
+
+  const changeLoadStatus = (isCompleted, message = '') => {
+    setLoading({
+      completed: isCompleted,
+      message: message
+    });
+  };
 
   useEffect(() => {
-    let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
-    setConvertedAmount(conversionRes);
+    loadExchangeRates(ENDPOINTS.BANK_GOV_UA)
+      .then((rates) => {
+        setExchangeRates(prepareRates(rates));
+        changeLoadStatus(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        changeLoadStatus(false, 'Service unavailable :( \n');
+      });
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(exchangeRates).length) {
+      let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
+      setConvertedAmount(conversionRes);
+    }
   }, [amount, selectedCurrency, buySell]);
 
   return [
@@ -59,20 +94,12 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     { amount, onAmountChange },
     { selectedCurrency, onCurrencyChange },
     { transactionHistory },
-    // exchangeRates,
+    exchangeRates,
     currencyList,
     convertedAmount,
-    onCommit
+    onCommit,
+    loading
   ];
-
-  // return {
-  //   operation: { buySell, onBuySellChange },
-  //   input: { amount, onAmountChange },
-  //   currency: { selectedCurrency, onCurrencyChange },
-  //   history: { transactionHistory },
-  //   convertedAmount,
-  //   onCommit
-  // };
 };
 
 useCurrencyExchanger.propTypes = {

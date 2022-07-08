@@ -6,6 +6,8 @@ export const OPERATIONS = {
 export const CURRENCY = {
   UAH: 'UAH',
   EUR: 'EUR',
-  GBR: 'GBR',
+  GBP: 'GBP',
   USD: 'USD'
 };
+
+export const EXCHANGECURRENCY = [CURRENCY.EUR, CURRENCY.GBP, CURRENCY.USD];

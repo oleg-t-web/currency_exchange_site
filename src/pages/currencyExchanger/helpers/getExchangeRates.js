@@ -10,7 +10,7 @@ const getExchangeRates = () => {
       [OPERATIONS.BUY]: 38.6,
       [OPERATIONS.SELL]: 38.2
     },
-    [CURRENCY.GBR]: {
+    [CURRENCY.GBP]: {
       [OPERATIONS.BUY]: 41.3,
       [OPERATIONS.SELL]: 41.1
     }
