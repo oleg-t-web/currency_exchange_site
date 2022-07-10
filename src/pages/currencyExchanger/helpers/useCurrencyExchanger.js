@@ -83,7 +83,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   }, []);
 
   useEffect(() => {
-    if (Object.keys(exchangeRates).length) {
+    if (loading.completed) {
       let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
       setConvertedAmount(conversionRes);
     }

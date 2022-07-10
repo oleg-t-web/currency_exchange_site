@@ -1,9 +1,9 @@
-import { fireEvent, getAllByRole, getAllByTestId, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CurrencyExchanger from '../CurrencyExchanger';
 import { CURRENCY, OPERATIONS } from '../helpers/CurrencyConstants';
 import userEvent from '@testing-library/user-event';
-import { INITIAL_VALUES } from '../../helpers/initialValues';
-import { EXCHANGE_RATES } from './testValues';
+import { INITIAL_VALUES as mockedValues } from '../../helpers/initialValues';
+import { EXCHANGE_RATES as mockedRates } from './testValues';
 
 // test('enable to change amount input', () => {
 //   render(<CurrencyExchanger />);
@@ -12,17 +12,6 @@ import { EXCHANGE_RATES } from './testValues';
 
 //   expect(inputElement.value).toBe('123');
 // });
-
-describe('initial render', () => {
-  test('check initial conditions when empty placeholder,  button  and transaction history invisible', () => {
-    render(<CurrencyExchanger {...INITIAL_VALUES} />);
-    expect(screen.getByTestId('amountInput').value).toBe('');
-    expect(screen.queryByTestId('commitButton')).toBe(null);
-    expect(screen.getByText(/Equals: 0.00/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('transactionHistory')).toBe(null);
-    expect(screen.getByTestId('currencySelector').value).toBe(INITIAL_VALUES.initialCurrncy);
-  });
-});
 
 const commitTransactions = (list) => {
   //[{operation, currency, amount}]
@@ -39,12 +28,21 @@ const commitTransactions = (list) => {
   }
 };
 
-describe('conveertions', () => {
+describe('chech behaviour', () => {
+  test('check initial conditions when empty placeholder,  button  and transaction history invisible', () => {
+    render(<CurrencyExchanger {...mockedValues} />);
+    expect(screen.getByTestId('amountInput').value).toBe('');
+    expect(screen.queryByTestId('commitButton')).toBe(null);
+    expect(screen.getByText(/Equals: 0.00/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('transactionHistory')).toBe(null);
+    expect(screen.getByTestId('currencySelector').value).toBe(mockedValues.initialCurrncy);
+  });
+
   test('Buy usd conversion', () => {
-    render(<CurrencyExchanger {...INITIAL_VALUES} />);
+    render(<CurrencyExchanger {...mockedValues} />);
     const pickedCurrency = CURRENCY.EUR; //INITIAL_VALUES.initialCurrncy;
     const pickedOperation = OPERATIONS.BUY;
-    const coef = EXCHANGE_RATES[pickedCurrency][pickedOperation]; //35.55;
+    const coef = mockedRates[pickedCurrency][pickedOperation]; //35.55;
     const userInput = 100;
     const valueInput = screen.getByTestId('amountInput');
     const buyButton = screen.getByRole('radio', { name: pickedOperation });
@@ -59,11 +57,9 @@ describe('conveertions', () => {
 
     expect(resultOutput).toBeInTheDocument();
   });
-});
 
-describe('transaction', () => {
   test('add transaction record on commit', () => {
-    render(<CurrencyExchanger {...INITIAL_VALUES} />);
+    render(<CurrencyExchanger {...mockedValues} />);
 
     const userInput = [
       { operation: OPERATIONS.SELL, currency: CURRENCY.USD, amount: 100 },
