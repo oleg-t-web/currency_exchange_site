@@ -56,7 +56,7 @@ function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) 
   return (
     <div>
       <React.StrictMode>
-        {loading.completed && <WaitIndicator />}
+        {!loading.completed && <WaitIndicator />}
         {loading.message && (
           <div className="errorMessage">
             <h2> {loading.message}</h2>

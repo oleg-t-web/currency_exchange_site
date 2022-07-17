@@ -75,17 +75,18 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     loadExchangeRates(ENDPOINTS.BANK_GOV_UA)
       .then((rates) => {
         setExchangeRates(prepareRates(rates));
-        changeLoadStatus(false);
+        changeLoadStatus(true);
       })
       .catch((err) => {
         console.log(err);
-        changeLoadStatus(false, 'Service unavailable :( \n');
+        changeLoadStatus(true, 'Service unavailable :( \n');
       });
   }, []);
 
   useEffect(() => {
     if (loading.completed) {
       let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
+
       setConvertedAmount(conversionRes);
     }
   }, [amount, selectedCurrency, buySell]);
