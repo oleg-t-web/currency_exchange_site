@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './CurrencyConstants';
-import loadExchangeRates, { ENDPOINTS } from './loadExchangeRates';
+import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
+import loadExchangeRates, { ENDPOINTS } from './helpers/loadExchangeRates';
 
 const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) => {
   const [buySell, setBuySell] = useState(initialOperation);
@@ -11,7 +11,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [convertedAmount, setConvertedAmount] = useState('');
   const [exchangeRates, setExchangeRates] = useState({});
-  const [loading, setLoading] = useState({ completed: false, message: '' });
+  const [loadStatus, setLoading] = useState({ completed: false, message: '' });
   const currencyList = useMemo(() => EXCHANGECURRENCY, []);
   const isSell = buySell === OPERATIONS.SELL;
 
@@ -32,12 +32,15 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   const onBuySellChange = useCallback((operation) => {
     setBuySell(operation);
   }, []);
+
   const onAmountChange = (amount) => {
     setAmount(amount);
   };
+
   const onCurrencyChange = useCallback((selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);
   }, []);
+
   const onCommit = () => {
     const transaction = {
       operation: buySell,
@@ -49,6 +52,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     setAmount('');
     console.log(JSON.stringify(transaction));
   };
+
   const prepareRates = (rates) => {
     const filteredCurrencyList = rates.filter((currencyInfo) =>
       Object.prototype.hasOwnProperty.call(CURRENCY, currencyInfo.cc)
@@ -84,7 +88,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   }, []);
 
   useEffect(() => {
-    if (loading.completed) {
+    if (loadStatus.completed) {
       let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
 
       setConvertedAmount(conversionRes);
@@ -100,7 +104,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     currencyList,
     convertedAmount,
     onCommit,
-    loading
+    loadStatus
   ];
 };
 

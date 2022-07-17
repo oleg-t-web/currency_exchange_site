@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Navbar from 'components/Navbar';
 
-import CurrencyExchanger from './currencyExchanger/CurrencyExchanger';
-import { INITIAL_VALUES } from './helpers/initialValues';
-import PAGES from './helpers/Links';
-import Home from './home/Home';
-import NotFound from './notFound/NotFound';
+import CurrencyExchanger from './pages/currencyExchanger/CurrencyExchanger';
+import { INITIAL_VALUES } from './pages/helpers/initialValues';
+import Home from './pages/home/Home';
+import NotFound from './pages/notFound/NotFound';
+import PAGES from './routes/Links';
 
 function App() {
   return (
