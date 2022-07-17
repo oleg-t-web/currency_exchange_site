@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Box, Button } from '@mui/material';
+import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 
 import Table from 'components/muiBased/table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
@@ -7,7 +8,7 @@ import WaitIndicator from 'components/muiBased/waitIndicator/WaitIndicator';
 import OperationPicker from 'components/OperationPicker';
 import OutputConverter from 'components/OutputConverter';
 
-import { CURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
+import { LOCAL_CURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 import useCurrencyExchanger from './useCurrencyExchanger';
 
 import './styles/exchanger.css';
@@ -17,7 +18,6 @@ function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) 
     operation,
     inputVal,
     currency,
-    history,
     exchangeRates,
     currencyList,
     convertedAmount,
@@ -25,18 +25,15 @@ function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) 
     loadStatus
   ] = useCurrencyExchanger(initialAmount, initialCurrncy, initialOperation);
 
+  const { transactionHistory } = useContext(TransactionHistoryContext);
+
   const isSell = operation.buySell === OPERATIONS.SELL;
-  const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : CURRENCY.UAH;
-  const localCurrency = CURRENCY.UAH;
+  const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : LOCAL_CURRENCY;
   const inputValueCaption = `Amount in ${('' + inputCurrency).toUpperCase()}:`;
   const convertionResStr = `Equals: ${convertedAmount} ${
-    isSell ? localCurrency.toUpperCase() : currency.selectedCurrency
+    isSell ? LOCAL_CURRENCY.toUpperCase() : currency.selectedCurrency
   }`;
   const commitEnabled = Number(convertedAmount) > 0;
-
-  const transactionHistoryList = useMemo(() => {
-    return history.transactionHistory.slice().reverse();
-  }, [history.transactionHistory.length]);
 
   const getCurrencyTable = useMemo(() => {
     return {
@@ -64,15 +61,11 @@ function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) 
       <Box className="transactionHistoryList">
         <TransactionHistoryList
           data-testid="transactionHistory"
-          values={transactionHistoryList}></TransactionHistoryList>
+          values={transactionHistory}></TransactionHistoryList>
       </Box>
       <Table {...getCurrencyTable} />
-      <OperationPicker currency={currency} currencyList={currencyList} operation={operation} />
-      <OutputConverter
-        inputValueCaption={inputValueCaption}
-        inputVal={inputVal}
-        convertionResStr={convertionResStr}
-      />
+      <OperationPicker {...{ currency, currencyList, operation }} />
+      <OutputConverter {...{ inputValueCaption, inputVal, convertionResStr }} />
       <Box className="commitButtton">
         <Button
           data-testid="commitButton"

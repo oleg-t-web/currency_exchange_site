@@ -10,11 +10,11 @@ const TransactionHistoryList = React.memo(({ values }) => {
     console.log('Transaction history created');
   });
   const list = [];
-  values.map((transaction, i) => {
+  values.map((transaction) => {
     const info = ` ${transaction.operation} ${transaction.amount}  ${transaction.currency}`;
     const date = transaction.date.slice(0, 19).replace(/-/g, '/').replace('T', ' ');
     list.push(
-      <ListItem key={i} alignItems="flex-start" data-testid="transactionRecord">
+      <ListItem key={date} alignItems="flex-start" data-testid="transactionRecord">
         <ListItemText primary={info} secondary={date} />
       </ListItem>
     );

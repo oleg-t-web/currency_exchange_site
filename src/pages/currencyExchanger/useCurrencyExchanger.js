@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 import PropTypes from 'prop-types';
 
 import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
@@ -8,7 +9,8 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   const [buySell, setBuySell] = useState(initialOperation);
   const [amount, setAmount] = useState(initialValue);
   const [selectedCurrency, setSelectedCurrency] = useState(initialCurrency);
-  const [transactionHistory, setTransactionHistory] = useState([]);
+  //const [transactionHistory, setTransactionHistory] = useState([]);
+  const { addTransactionRecord } = useContext(TransactionHistoryContext);
   const [convertedAmount, setConvertedAmount] = useState('');
   const [exchangeRates, setExchangeRates] = useState({});
   const [loadStatus, setLoading] = useState({ completed: false, message: '' });
@@ -48,7 +50,8 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
       amount: +amount,
       date: new Date().toJSON()
     };
-    setTransactionHistory((prev) => [...prev, transaction]);
+    // setTransactionHistory((prev) => [...prev, transaction]);
+    addTransactionRecord(transaction);
     setAmount('');
     console.log(JSON.stringify(transaction));
   };
@@ -99,7 +102,7 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
     { buySell, onBuySellChange },
     { amount, onAmountChange },
     { selectedCurrency, onCurrencyChange },
-    { transactionHistory },
+    // { transactionHistory },
     exchangeRates,
     currencyList,
     convertedAmount,

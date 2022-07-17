@@ -10,4 +10,6 @@ export const CURRENCY = {
   USD: 'USD'
 };
 
+export const LOCAL_CURRENCY = CURRENCY.UAH;
+
 export const EXCHANGECURRENCY = [CURRENCY.EUR, CURRENCY.GBP, CURRENCY.USD];
