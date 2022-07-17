@@ -1,4 +1,4 @@
-import { OPERATIONS, CURRENCY } from '../currencyExchanger/helpers/CurrencyConstants';
+import { CURRENCY, OPERATIONS } from '../currencyExchanger/helpers/CurrencyConstants';
 
 export const INITIAL_VALUES = {
   initialAmount: '',

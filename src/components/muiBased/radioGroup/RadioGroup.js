@@ -1,8 +1,9 @@
 import React from 'react';
-import { RadioGroup as MUIRadioGroup } from '@mui/material';
-import RadioButtonsForm from './radioButtonsForm/RadioButtonsForm';
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+import { RadioGroup as MUIRadioGroup } from '@mui/material';
+import PropTypes from 'prop-types';
+
+import RadioButtonsForm from './radioButtonsForm/RadioButtonsForm';
 
 const RadioGroup = React.memo(({ currentValue, valuesList, handleValueChange }) => {
   useEffect(() => {

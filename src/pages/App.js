@@ -1,11 +1,13 @@
 import React from 'react';
-import CurrencyExchanger from './currencyExchanger/CurrencyExchanger';
-import Home from './home/Home';
-import Navbar from '../components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import PAGES from './helpers/Links';
-import NotFound from './notFound/NotFound';
+
+import Navbar from 'components/Navbar';
+
+import CurrencyExchanger from './currencyExchanger/CurrencyExchanger';
 import { INITIAL_VALUES } from './helpers/initialValues';
+import PAGES from './helpers/Links';
+import Home from './home/Home';
+import NotFound from './notFound/NotFound';
 
 function App() {
   return (

@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { INITIAL_VALUES as mockedValues } from '../../helpers/initialValues';
 import CurrencyExchanger from '../CurrencyExchanger';
 import { CURRENCY, OPERATIONS } from '../helpers/CurrencyConstants';
-import userEvent from '@testing-library/user-event';
-import { INITIAL_VALUES as mockedValues } from '../../helpers/initialValues';
+
 import { EXCHANGE_RATES as mockedRates } from './testValues';
 
 // test('enable to change amount input', () => {

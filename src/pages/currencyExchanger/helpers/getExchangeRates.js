@@ -1,4 +1,4 @@
-import { OPERATIONS, CURRENCY } from './CurrencyConstants';
+import { CURRENCY, OPERATIONS } from './CurrencyConstants';
 
 const getExchangeRates = () => {
   const exchangeRates = {

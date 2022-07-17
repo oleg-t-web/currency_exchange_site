@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState, useMemo } from 'react';
-import { OPERATIONS, CURRENCY, EXCHANGECURRENCY } from './CurrencyConstants';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+
+import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './CurrencyConstants';
 import loadExchangeRates, { ENDPOINTS } from './loadExchangeRates';
 
 const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) => {

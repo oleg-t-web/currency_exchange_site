@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import TableHeader from './tableHeader/TableHeader';
+
 import TableBody from './tableBody/TableBody';
+import TableHeader from './tableHeader/TableHeader';
 
 const CompTable = ({ header, body, columnNames }) => {
   return (

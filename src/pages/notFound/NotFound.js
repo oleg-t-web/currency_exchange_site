@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import PAGES from '../helpers/Links';
 
 const NotFound = () => {

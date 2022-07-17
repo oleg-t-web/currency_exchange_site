@@ -1,13 +1,16 @@
-import './styles/exchanger.css';
 import React, { useMemo } from 'react';
-import { OPERATIONS, CURRENCY } from './helpers/CurrencyConstants';
 import { Box, Button, TextField } from '@mui/material';
-import Table from '../../components/muiBased/table/Table';
-import DropDown from '../../components/muiBased/dropDown/DropDown';
-import RadioGroup from '../../components/muiBased/radioGroup/RadioGroup';
-import TransactionHistoryList from '../../components/muiBased/TransactionHistoryList';
+
+import DropDown from 'components/muiBased/dropDown/DropDown';
+import RadioGroup from 'components/muiBased/radioGroup/RadioGroup';
+import Table from 'components/muiBased/table/Table';
+import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
+import WaitIndicator from 'components/muiBased/waitIndicator/WaitIndicator';
+
+import { CURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 import useCurrencyExchanger from './helpers/useCurrencyExchanger';
-import WaitIndicator from '../../components/muiBased/waitIndicator/WaitIndicator';
+
+import './styles/exchanger.css';
 //import getExchangeRates from './helpers/getExchangeRates';
 
 function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) {

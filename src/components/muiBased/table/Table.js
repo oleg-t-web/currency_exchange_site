@@ -1,13 +1,14 @@
 import React from 'react';
+import { useEffect } from 'react';
 import {
   Table as MuiTable,
   TableBody as MuiTableBody,
   TableHead as MuiTableHead
 } from '@mui/material';
+import PropTypes from 'prop-types';
+
 import TableRowCells from './tableRowCells/TableRowCells';
 import TableRows from './tableRows/TableRows';
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 
 const Table = React.memo(({ header, body, columnNames }) => {
   useEffect(() => {
