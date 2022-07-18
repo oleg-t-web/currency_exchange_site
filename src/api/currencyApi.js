@@ -1,26 +1,21 @@
-import axios from 'axios';
-
-import { BANK_GOV_UA_ENDPOINTS } from './endpoints';
+import createApi, { INTERFACES } from './apiConnector';
+import { BANK_GOV_UA as ENDPOINTS } from './endpoints';
 
 const apiConfig = {
-  baseURL: BANK_GOV_UA_ENDPOINTS.BASE
+  baseURL: ENDPOINTS.BASE
 };
 
 let requestHandler;
 
-const createRequestHandler = (config) => {
-  return axios.create(config);
-};
-
 const getCurrencyRates = () => {
   return requestHandler
-    .get(BANK_GOV_UA_ENDPOINTS.RATES)
+    .get(ENDPOINTS.RATES)
     .then((responce) => responce.data)
     .catch((error) => Promise.reject(error));
 };
 
 const init = () => {
-  requestHandler = createRequestHandler(apiConfig);
+  requestHandler = createApi(INTERFACES.AXIOS, apiConfig);
 };
 
 export const api = {
