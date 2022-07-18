@@ -1,9 +1,10 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+//import loadExchangeRates, { ENDPOINTS } from './helpers/loadExchangeRates';
+import { api as exchangerApi } from 'api/currencyApi';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 import PropTypes from 'prop-types';
 
 import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
-import loadExchangeRates, { ENDPOINTS } from './helpers/loadExchangeRates';
 
 const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) => {
   const [buySell, setBuySell] = useState(initialOperation);
@@ -79,7 +80,9 @@ const useCurrencyExchanger = (initialValue, initialCurrency, initialOperation) =
   };
 
   useEffect(() => {
-    loadExchangeRates(ENDPOINTS.BANK_GOV_UA)
+    exchangerApi.init();
+    exchangerApi
+      .getCurrencyRates() //loadExchangeRates(ENDPOINTS.BANK_GOV_UA)
       .then((rates) => {
         setExchangeRates(prepareRates(rates));
         changeLoadStatus(true);
