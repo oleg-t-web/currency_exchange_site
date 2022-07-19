@@ -3,11 +3,11 @@ import { Box, Button } from '@mui/material';
 import { api as currencyApi } from 'api/currencyApi';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 
+import OperationPicker from 'components/exchanger/OperationPicker';
+import OutputConverter from 'components/exchanger/OutputConverter';
 import Table from 'components/muiBased/table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
 import WaitIndicator from 'components/muiBased/waitIndicator/WaitIndicator';
-import OperationPicker from 'components/OperationPicker';
-import OutputConverter from 'components/OutputConverter';
 
 import { LOCAL_CURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 import useCurrencyExchanger from './useCurrencyExchanger';
