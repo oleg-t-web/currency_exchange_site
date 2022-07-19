@@ -1,7 +1,7 @@
+import { OPERATIONS } from 'pages/ Exchanger/helpers/CurrencyConstants';
+
 import DropDown from 'components/muiBased/DropDown/DropDown';
 import RadioGroup from 'components/muiBased/radioGroup/RadioGroup';
-
-import { OPERATIONS } from '../pages/currencyExchanger/helpers/CurrencyConstants';
 
 const OperationPicker = ({ currency, currencyList, operation }) => {
   return (

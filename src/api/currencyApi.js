@@ -19,6 +19,6 @@ const init = () => {
 };
 
 export const api = {
-  getCurrencyRates,
-  init
+  init,
+  getCurrencyRates
 };

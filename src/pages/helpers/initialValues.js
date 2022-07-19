@@ -1,7 +1,7 @@
-import { CURRENCY, OPERATIONS } from '../currencyExchanger/helpers/CurrencyConstants';
+import { CURRENCY, OPERATIONS } from '../ Exchanger/helpers/CurrencyConstants';
 
 export const INITIAL_VALUES = {
-  initialAmount: '',
-  initialCurrncy: CURRENCY.USD,
-  initialOperation: OPERATIONS.BUY
+  amount: '',
+  currency: CURRENCY.USD,
+  operation: OPERATIONS.BUY
 };

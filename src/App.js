@@ -4,7 +4,7 @@ import TransactionHistoryContextProvider from 'contexts/TransactionHistoryContex
 
 import Navbar from 'components/Navbar';
 
-import CurrencyExchanger from './pages/currencyExchanger/CurrencyExchanger';
+import CurrencyExchanger from './pages/ Exchanger/Exchanger';
 import { INITIAL_VALUES } from './pages/helpers/initialValues';
 import Home from './pages/home/Home';
 import NotFound from './pages/notFound/NotFound';
@@ -22,7 +22,7 @@ function App() {
               <Route
                 exact
                 path={PAGES.EXCHANGER}
-                element={<CurrencyExchanger {...INITIAL_VALUES} />}></Route>
+                element={<CurrencyExchanger initialValues={INITIAL_VALUES} />}></Route>
               <Route exact path={PAGES.UNKNOWN} element={<NotFound />}></Route>
             </Routes>
           </div>

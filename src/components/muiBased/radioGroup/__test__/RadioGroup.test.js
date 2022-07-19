@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { OPERATIONS } from '../../../../pages/currencyExchanger/helpers/CurrencyConstants';
+import { OPERATIONS } from '../../../../pages/ Exchanger/helpers/CurrencyConstants';
 import RadioGroup from '../RadioGroup';
 
 test('change operation', () => {

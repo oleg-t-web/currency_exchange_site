@@ -1,5 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { Box, Button } from '@mui/material';
+import { api as currencyApi } from 'api/currencyApi';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 
 import Table from 'components/muiBased/table/Table';
@@ -13,7 +14,7 @@ import useCurrencyExchanger from './useCurrencyExchanger';
 
 import './styles/exchanger.css';
 
-function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) {
+function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
   const [
     operation,
     inputVal,
@@ -23,7 +24,7 @@ function CurrencyExchanger({ initialAmount, initialCurrncy, initialOperation }) 
     convertedAmount,
     onCommit,
     loadStatus
-  ] = useCurrencyExchanger(initialAmount, initialCurrncy, initialOperation);
+  ] = useCurrencyExchanger(exchangerApi, initialValues);
 
   const { transactionHistory } = useContext(TransactionHistoryContext);
 
