@@ -19,6 +19,7 @@
     "react/prop-types": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
+    // "function-paren-newline": ["error", { "minItems": 3 }]
   },
   "overrides": [
     // override "simple-import-sort" config

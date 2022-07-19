@@ -18,7 +18,8 @@ const init = () => {
   requestHandler = createApi(INTERFACES.AXIOS, apiConfig);
 };
 
+export default init;
+
 export const api = {
-  init,
   getCurrencyRates
 };

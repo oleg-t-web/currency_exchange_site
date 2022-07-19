@@ -33,12 +33,9 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
     setBuySell(operation);
   }, []);
 
-  const onAmountChange = useCallback(
-    (amount) => {
-      setAmount(amount);
-    },
-    [amount]
-  );
+  const onAmountChange = useCallback((amount) => {
+    setAmount(amount);
+  }, []);
 
   const onCurrencyChange = useCallback((selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);
@@ -94,7 +91,7 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
 
   useEffect(() => {
     if (loadStatus.completed) {
-      let conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
+      const conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
 
       setConvertedAmount(conversionRes);
     }

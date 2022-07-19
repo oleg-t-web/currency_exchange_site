@@ -1,7 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Box, Button } from '@mui/material';
 import { api as currencyApi } from 'api/currencyApi';
-import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
+import useTransactionHistory from 'hooks/useTransactionHistory';
 
 import OperationPicker from 'components/Exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
@@ -26,7 +26,7 @@ function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
     loadStatus
   ] = useCurrencyExchanger(exchangerApi, initialValues);
 
-  const { transactionHistory } = useContext(TransactionHistoryContext);
+  const { transactionHistory } = useTransactionHistory();
 
   const isSell = operation.buySell === OPERATIONS.SELL;
   const inputCurrency = isSell ? currency.selectedCurrency.toUpperCase() : LOCAL_CURRENCY;
