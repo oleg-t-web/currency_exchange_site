@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { RadioGroup as MUIRadioGroup } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import RadioButtonsForm from './radioButtonsForm/RadioButtonsForm';
+import RadioButtonsForm from './RadioButtonsForm/RadioButtonsForm';
 
 const RadioGroup = React.memo(({ currentValue, valuesList, handleValueChange }) => {
   useEffect(() => {

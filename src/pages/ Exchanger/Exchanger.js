@@ -3,11 +3,11 @@ import { Box, Button } from '@mui/material';
 import { api as currencyApi } from 'api/currencyApi';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 
-import OperationPicker from 'components/exchanger/OperationPicker';
-import OutputConverter from 'components/exchanger/OutputConverter';
-import Table from 'components/muiBased/table/Table';
+import OperationPicker from 'components/Exchanger/OperationPicker';
+import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
-import WaitIndicator from 'components/muiBased/waitIndicator/WaitIndicator';
+import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
+import OutputConverter from 'components/OutputConverter';
 
 import { LOCAL_CURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 import useCurrencyExchanger from './useCurrencyExchanger';
@@ -17,7 +17,7 @@ import './styles/exchanger.css';
 function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
   const [
     operation,
-    inputVal,
+    inputField,
     currency,
     exchangeRates,
     currencyList,
@@ -60,13 +60,18 @@ function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
   return (
     <div>
       <Box className="transactionHistoryList">
-        <TransactionHistoryList
-          data-testid="transactionHistory"
-          values={transactionHistory}></TransactionHistoryList>
+        <TransactionHistoryList data-testid="transactionHistory" values={transactionHistory} />
       </Box>
       <Table {...getCurrencyTable} />
-      <OperationPicker {...{ currency, currencyList, operation }} />
-      <OutputConverter {...{ inputValueCaption, inputVal, convertionResStr }} />
+      <OperationPicker {...{ ...currency, currencyList, ...operation }} />
+      <OutputConverter
+        {...{
+          inputValueCaption,
+          inputValue: inputField.amount,
+          handleInputChange: inputField.onAmountChange,
+          convertionResStr
+        }}
+      />
       <Box className="commitButtton">
         <Button
           data-testid="commitButton"

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 
 const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
-  //(initialValue, initialCurrency, initialOperation) => {
   const [buySell, setBuySell] = useState(initialValues.operation);
   const [amount, setAmount] = useState(initialValues.amount);
   const [selectedCurrency, setSelectedCurrency] = useState(initialValues.currency);
@@ -34,9 +33,12 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
     setBuySell(operation);
   }, []);
 
-  const onAmountChange = (amount) => {
-    setAmount(amount);
-  };
+  const onAmountChange = useCallback(
+    (amount) => {
+      setAmount(amount);
+    },
+    [amount]
+  );
 
   const onCurrencyChange = useCallback((selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);

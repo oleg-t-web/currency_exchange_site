@@ -6,8 +6,8 @@ import Navbar from 'components/Navbar';
 
 import CurrencyExchanger from './pages/ Exchanger/Exchanger';
 import { INITIAL_VALUES } from './pages/helpers/initialValues';
-import Home from './pages/home/Home';
-import NotFound from './pages/notFound/NotFound';
+import Home from './pages/Home/Home';
+import NotFound from './pages/NotFound/NotFound';
 import PAGES from './routes/Links';
 
 function App() {
@@ -15,15 +15,16 @@ function App() {
     <div>
       <Router>
         <TransactionHistoryContextProvider>
-          <Navbar></Navbar>
+          <Navbar />
           <div>
             <Routes>
-              <Route exact path={PAGES.HOME} element={<Home />}></Route>
+              <Route exact path={PAGES.HOME} element={<Home />} />
               <Route
                 exact
                 path={PAGES.EXCHANGER}
-                element={<CurrencyExchanger initialValues={INITIAL_VALUES} />}></Route>
-              <Route exact path={PAGES.UNKNOWN} element={<NotFound />}></Route>
+                element={<CurrencyExchanger initialValues={INITIAL_VALUES} />}
+              />
+              <Route exact path={PAGES.UNKNOWN} element={<NotFound />} />
             </Routes>
           </div>
         </TransactionHistoryContextProvider>

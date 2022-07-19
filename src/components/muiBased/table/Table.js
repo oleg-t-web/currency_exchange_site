@@ -7,8 +7,8 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import TableRowCells from './tableRowCells/TableRowCells';
-import TableRows from './tableRows/TableRows';
+import TableRowCells from './TableRowCells/TableRowCells';
+import TableRows from './TableRows/TableRows';
 
 const Table = React.memo(({ header, body, columnNames }) => {
   useEffect(() => {

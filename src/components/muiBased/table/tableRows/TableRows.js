@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import TableRowCells from '../tableRowCells/TableRowCells';
+import TableRowCells from '../TableRowCells/TableRowCells';
 
 const TableRows = ({ values, columnNames }) => {
   const table = [];
