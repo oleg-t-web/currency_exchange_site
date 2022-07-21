@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { init as initExchangerApi } from 'api/currencyApi';
 import TransactionHistoryContextProvider from 'contexts/TransactionHistoryContext';
 
 import Navbar from 'components/Navbar';
@@ -11,6 +12,8 @@ import NotFound from './pages/NotFound/NotFound';
 import PAGES from './routes/Links';
 
 function App() {
+  initExchangerApi();
+
   return (
     <div>
       <Router>

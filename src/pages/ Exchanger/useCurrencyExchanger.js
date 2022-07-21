@@ -33,9 +33,10 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
     setBuySell(operation);
   }, []);
 
-  const onAmountChange = useCallback((amount) => {
+  const onAmountChange = (amount) => {
+    console.log('******************Here I am**********************');
     setAmount(amount);
-  }, []);
+  };
 
   const onCurrencyChange = useCallback((selectedCurrency) => {
     setSelectedCurrency(selectedCurrency);
@@ -76,7 +77,6 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
   };
 
   useEffect(() => {
-    exchangerApi.init();
     exchangerApi
       .getCurrencyRates()
       .then((rates) => {

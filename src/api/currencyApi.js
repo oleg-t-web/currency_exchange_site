@@ -14,11 +14,10 @@ const getCurrencyRates = () => {
     .catch((error) => Promise.reject(error));
 };
 
-const init = () => {
+export const init = () => {
+  console.log('Init called');
   requestHandler = createApi(INTERFACES.AXIOS, apiConfig);
 };
-
-export default init;
 
 export const api = {
   getCurrencyRates
