@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
 import { Box, Button } from '@mui/material';
 import { api as currencyApi } from 'api/currencyApi';
 import useTransactionHistory from 'hooks/useTransactionHistory';
 
+//import buySell from 'store/actionCreators/buySell';
 import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
@@ -85,4 +87,24 @@ function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
   );
 }
 
-export default CurrencyExchanger;
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps > ', state);
+  const { operation, selectedCurrency, input } = state;
+  return {
+    initialValues: {
+      amount: input.amount,
+      operation: operation.buySell,
+      currency: selectedCurrency.currency
+    }
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onBuySellChange() {
+//       dispatch(buySell());
+//     }
+//   };
+// };
+
+export default connect(mapStateToProps)(CurrencyExchanger);

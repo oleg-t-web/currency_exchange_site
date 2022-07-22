@@ -1,6 +1,8 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 import PropTypes from 'prop-types';
+import buySellAction from 'store/actionCreators/buySell';
 
 import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 
@@ -14,6 +16,8 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
   const [loadStatus, setLoading] = useState({ completed: false, message: '' });
   const currencyList = useMemo(() => EXCHANGECURRENCY, []);
   const isSell = buySell === OPERATIONS.SELL;
+
+  const dispatchBuySell = useDispatch();
 
   const tryConvert = (amount, currency, isSell, exchangeRates) => {
     const input = parseFloat(Number(amount));
@@ -31,6 +35,7 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
 
   const onBuySellChange = useCallback((operation) => {
     setBuySell(operation);
+    dispatchBuySell(buySellAction(operation));
   }, []);
 
   const onAmountChange = (amount) => {
@@ -110,7 +115,7 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
 };
 
 useCurrencyExchanger.propTypes = {
-  initialValue: PropTypes.string,
+  initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
   initialCurrency: PropTypes.oneOf(Object.values(CURRENCY)),
   initialOperation: PropTypes.oneOf(Object.values(OPERATIONS))
 };
