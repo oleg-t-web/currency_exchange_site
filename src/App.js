@@ -5,7 +5,7 @@ import TransactionHistoryContextProvider from 'contexts/TransactionHistoryContex
 
 import Navbar from 'components/Navbar';
 
-import CurrencyExchanger from './pages/ Exchanger/Exchanger';
+import CurrencyExchanger from './pages/Exchanger/Exchanger';
 import { INITIAL_VALUES } from './pages/helpers/initialValues';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { OPERATIONS } from 'pages/ Exchanger/helpers/CurrencyConstants';
+import { OPERATIONS } from 'pages/Exchanger/helpers/CurrencyConstants';
 import PropTypes from 'prop-types';
 
 import DropDown from 'components/muiBased/DropDown/DropDown';

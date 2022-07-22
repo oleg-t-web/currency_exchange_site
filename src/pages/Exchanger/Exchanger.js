@@ -3,7 +3,7 @@ import { Box, Button } from '@mui/material';
 import { api as currencyApi } from 'api/currencyApi';
 import useTransactionHistory from 'hooks/useTransactionHistory';
 
-import OperationPicker from 'components/Exchanger/OperationPicker';
+import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
 import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
