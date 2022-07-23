@@ -7,7 +7,7 @@ import useTransactionHistory from 'hooks/useTransactionHistory';
 import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
-import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
+//import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 import OutputConverter from 'components/OutputConverter';
 
 import { LOCAL_CURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
@@ -48,7 +48,7 @@ function CurrencyExchanger({ exchangerApi = currencyApi }) {
   if (!loadStatus.completed || loadStatus.message) {
     return (
       <div>
-        {!loadStatus.completed && <WaitIndicator />}
+        {/* {!loadStatus.completed && } */}
         {loadStatus.message && (
           <div className="errorMessage">
             <h2> {loadStatus.message}</h2>

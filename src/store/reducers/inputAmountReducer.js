@@ -1,5 +1,5 @@
 import { INITIAL_VALUES } from 'pages/helpers/initialValues';
-import { ACTIONS } from 'store/actions/actions';
+import { ACTIONS } from 'store/actions/exchanger';
 
 const initialState = {
   amount: INITIAL_VALUES.amount

@@ -1,5 +1,5 @@
 import { INITIAL_VALUES } from 'pages/helpers/initialValues';
-import { ACTIONS } from 'store/actions/actions';
+import { ACTIONS } from 'store/actions/exchanger';
 
 const initialState = {
   currency: INITIAL_VALUES.currency
@@ -12,6 +12,7 @@ export const currencyReducer = (state = initialState, action) => {
         ...state,
         currency: action.value
       };
+      break;
   }
 
   return state;

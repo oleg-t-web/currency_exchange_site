@@ -5,6 +5,7 @@ import { init as initExchangerApi } from 'api/currencyApi';
 import TransactionHistoryContextProvider from 'contexts/TransactionHistoryContext';
 import store from 'store/store';
 
+import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 import Navbar from 'components/Navbar';
 
 import CurrencyExchanger from './pages/Exchanger/Exchanger';
@@ -21,6 +22,7 @@ function App() {
         <Provider store={store}>
           <TransactionHistoryContextProvider>
             <Navbar />
+            <WaitIndicator />
             <div>
               <Routes>
                 <Route exact path={PAGES.HOME} element={<Home />} />

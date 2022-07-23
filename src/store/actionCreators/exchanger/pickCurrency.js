@@ -1,4 +1,4 @@
-import { ACTIONS } from 'store/actions/actions';
+import { ACTIONS } from 'store/actions/exchanger';
 
 const pickCurrencyAction = (value) => {
   return {

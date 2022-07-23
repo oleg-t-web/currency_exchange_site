@@ -1,7 +1,8 @@
 .waitIndicator {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: fixed; /* Stay in place */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
 }
