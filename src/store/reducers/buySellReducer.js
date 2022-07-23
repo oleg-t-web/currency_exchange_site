@@ -1,10 +1,18 @@
-import { OPERATIONS } from 'pages/Exchanger/helpers/CurrencyConstants';
+import { INITIAL_VALUES } from 'pages/helpers/initialValues';
+import { ACTIONS } from 'store/actions/actions';
 
 const initialState = {
-  buySell: OPERATIONS.SELL
+  buySell: INITIAL_VALUES.operation
 };
 
 export const buySellReducer = (state = initialState, action) => {
-  console.log('buySellReducer > ', action);
+  switch (action.type) {
+    case ACTIONS.BUY_SELL:
+      state = {
+        ...state,
+        buySell: action.value
+      };
+  }
+
   return state;
 };

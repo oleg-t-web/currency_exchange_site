@@ -1,7 +1,9 @@
-const buySellAction = (val) => {
+import { ACTIONS } from 'store/actions/actions';
+
+const buySellAction = (value) => {
   return {
-    type: 'BUY_SELL',
-    value: val
+    type: ACTIONS.BUY_SELL,
+    value
   };
 };
 

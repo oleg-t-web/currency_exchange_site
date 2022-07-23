@@ -1,23 +1,40 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import buySellAction from 'store/actionCreators/buySell';
+import inputAmountAction from 'store/actionCreators/inputAmount';
+import pickCurrencyAction from 'store/actionCreators/pickCurrency';
 
 import { CURRENCY, EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 
-const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
-  const [buySell, setBuySell] = useState(initialValues.operation);
-  const [amount, setAmount] = useState(initialValues.amount);
-  const [selectedCurrency, setSelectedCurrency] = useState(initialValues.currency);
+const useCurrencyExchanger = (exchangerApi) => {
   const { addTransactionRecord } = useContext(TransactionHistoryContext);
   const [convertedAmount, setConvertedAmount] = useState('');
   const [exchangeRates, setExchangeRates] = useState({});
   const [loadStatus, setLoading] = useState({ completed: false, message: '' });
   const currencyList = useMemo(() => EXCHANGECURRENCY, []);
-  const isSell = buySell === OPERATIONS.SELL;
 
   const dispatchBuySell = useDispatch();
+  const dispatchInputAmount = useDispatch();
+  const dispatchCurrencyChange = useDispatch();
+
+  const amount = useSelector((state) => {
+    const { input } = state;
+    return input.amount;
+  });
+
+  const buySell = useSelector((state) => {
+    const { operation } = state;
+    return operation.buySell;
+  });
+
+  const selectedCurrency = useSelector((state) => {
+    const { selectedCurrency } = state;
+    return selectedCurrency.currency;
+  });
+
+  const isSell = buySell === OPERATIONS.SELL;
 
   const tryConvert = (amount, currency, isSell, exchangeRates) => {
     const input = parseFloat(Number(amount));
@@ -34,17 +51,16 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
   };
 
   const onBuySellChange = useCallback((operation) => {
-    setBuySell(operation);
     dispatchBuySell(buySellAction(operation));
   }, []);
 
   const onAmountChange = (amount) => {
     console.log('******************Here I am**********************');
-    setAmount(amount);
+    dispatchInputAmount(inputAmountAction(amount));
   };
 
   const onCurrencyChange = useCallback((selectedCurrency) => {
-    setSelectedCurrency(selectedCurrency);
+    dispatchCurrencyChange(pickCurrencyAction(selectedCurrency));
   }, []);
 
   const onCommit = () => {
@@ -55,7 +71,7 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
       date: new Date().toJSON()
     };
     addTransactionRecord(transaction);
-    setAmount('');
+    dispatchInputAmount(inputAmountAction(''));
     console.log(JSON.stringify(transaction));
   };
 
@@ -114,10 +130,10 @@ const useCurrencyExchanger = (exchangerApi, initialValues = {}) => {
   ];
 };
 
-useCurrencyExchanger.propTypes = {
-  initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-  initialCurrency: PropTypes.oneOf(Object.values(CURRENCY)),
-  initialOperation: PropTypes.oneOf(Object.values(OPERATIONS))
-};
+// useCurrencyExchanger.propTypes = {
+//   initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+//   initialCurrency: PropTypes.oneOf(Object.values(CURRENCY)),
+//   initialOperation: PropTypes.oneOf(Object.values(OPERATIONS))
+// };
 
 export default useCurrencyExchanger;

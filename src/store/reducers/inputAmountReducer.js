@@ -1,8 +1,18 @@
+import { INITIAL_VALUES } from 'pages/helpers/initialValues';
+import { ACTIONS } from 'store/actions/actions';
+
 const initialState = {
-  amount: '10'
+  amount: INITIAL_VALUES.amount
 };
 
 export const inputAmountReducer = (state = initialState, action) => {
-  console.log('inputAmountReducer > ', action);
+  switch (action.type) {
+    case ACTIONS.INPUT_AMOUNT:
+      state = {
+        ...state,
+        amount: action.value
+      };
+  }
+
   return state;
 };

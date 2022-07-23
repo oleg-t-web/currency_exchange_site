@@ -1,10 +1,18 @@
-import { CURRENCY } from 'pages/Exchanger/helpers/CurrencyConstants';
+import { INITIAL_VALUES } from 'pages/helpers/initialValues';
+import { ACTIONS } from 'store/actions/actions';
 
 const initialState = {
-  currency: CURRENCY.USD
+  currency: INITIAL_VALUES.currency
 };
 
 export const currencyReducer = (state = initialState, action) => {
-  console.log('currencyReducer > ', action);
+  switch (action.type) {
+    case ACTIONS.PICK_CURRENCY:
+      state = {
+        ...state,
+        currency: action.value
+      };
+  }
+
   return state;
 };

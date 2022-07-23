@@ -4,7 +4,6 @@ import { Box, Button } from '@mui/material';
 import { api as currencyApi } from 'api/currencyApi';
 import useTransactionHistory from 'hooks/useTransactionHistory';
 
-//import buySell from 'store/actionCreators/buySell';
 import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
@@ -16,7 +15,7 @@ import useCurrencyExchanger from './useCurrencyExchanger';
 
 import './styles/exchanger.css';
 
-function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
+function CurrencyExchanger({ exchangerApi = currencyApi }) {
   const [
     operation,
     inputField,
@@ -26,7 +25,7 @@ function CurrencyExchanger({ initialValues = {}, exchangerApi = currencyApi }) {
     convertedAmount,
     onCommit,
     loadStatus
-  ] = useCurrencyExchanger(exchangerApi, initialValues);
+  ] = useCurrencyExchanger(exchangerApi);
 
   const { transactionHistory } = useTransactionHistory();
 
@@ -98,13 +97,5 @@ const mapStateToProps = (state) => {
     }
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onBuySellChange() {
-//       dispatch(buySell());
-//     }
-//   };
-// };
 
 export default connect(mapStateToProps)(CurrencyExchanger);
