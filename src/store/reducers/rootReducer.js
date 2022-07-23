@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { buySellReducer } from './buySellReducer';
-import { currencyReducer } from './currencyReducer';
-import { inputAmountReducer } from './inputAmountReducer';
+import { buySellReducer } from './exchanger/buySellReducer';
+import { currencyReducer } from './exchanger/currencyReducer';
+import { inputAmountReducer } from './exchanger/inputAmountReducer';
+import { loadRatesReducer } from './exchanger/loadRatesReducer';
 import loaderIndicatorReducer from './loaderIndicatorReducer';
-import { loadRatesReducer } from './loadRatesReducer';
 
 export const rootReducer = combineReducers({
   operation: buySellReducer,

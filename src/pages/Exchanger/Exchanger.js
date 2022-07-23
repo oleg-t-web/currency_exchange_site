@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Box, Button } from '@mui/material';
-import { api as currencyApi } from 'api/currencyApi';
 import useTransactionHistory from 'hooks/useTransactionHistory';
 
 import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
+import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 //import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 import OutputConverter from 'components/OutputConverter';
 
@@ -15,18 +15,12 @@ import useCurrencyExchanger from './useCurrencyExchanger';
 
 import './styles/exchanger.css';
 
-function CurrencyExchanger({ exchangerApi = currencyApi }) {
-  const [
-    operation,
-    inputField,
-    currency,
-    exchangeRates,
-    currencyList,
-    convertedAmount,
-    onCommit,
-    loadStatus
-  ] = useCurrencyExchanger(exchangerApi);
+function CurrencyExchanger() {
+  //do not know how to place them in row :((
+  const [operation, inputField, currency, exchangeRates, currencyList, convertedAmount, onCommit] =
+    useCurrencyExchanger();
 
+  const { isLoading, error } = useSelector((state) => state.loadStatus);
   const { transactionHistory } = useTransactionHistory();
 
   const isSell = operation.buySell === OPERATIONS.SELL;
@@ -45,13 +39,13 @@ function CurrencyExchanger({ exchangerApi = currencyApi }) {
     };
   }, [exchangeRates]);
 
-  if (!loadStatus.completed || loadStatus.message) {
+  if (isLoading || error) {
     return (
       <div>
-        {/* {!loadStatus.completed && } */}
-        {loadStatus.message && (
+        {isLoading && <WaitIndicator />}
+        {error && (
           <div className="errorMessage">
-            <h2> {loadStatus.message}</h2>
+            <h2> {error}</h2>
           </div>
         )}
       </div>

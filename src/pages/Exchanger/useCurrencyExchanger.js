@@ -4,7 +4,7 @@ import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
 //import PropTypes from 'prop-types';
 import buySellAction from 'store/actionCreators/exchanger/buySell';
 import inputAmountAction from 'store/actionCreators/exchanger/inputAmount';
-import loadCurrencyAction from 'store/actionCreators/exchanger/loadCurrency';
+import loadCurrencyAction from 'store/actionCreators/exchanger/loadRates';
 import pickCurrencyAction from 'store/actionCreators/exchanger/pickCurrency';
 
 import { EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';

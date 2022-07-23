@@ -5,6 +5,7 @@ const initialState = {
   error: null
 };
 const loaderIndicatorReducer = (state = initialState, action) => {
+  console.log('WAITINDICATOR> ', state);
   switch (action.type) {
     case ACTIONS.SHOW_INDICATOR:
       state = {
@@ -22,12 +23,6 @@ const loaderIndicatorReducer = (state = initialState, action) => {
       state = {
         ...state,
         error: action.value
-      };
-      break;
-    case ACTIONS.HIDE_ERROR_MESSAGE:
-      state = {
-        ...state,
-        error: null
       };
       break;
   }

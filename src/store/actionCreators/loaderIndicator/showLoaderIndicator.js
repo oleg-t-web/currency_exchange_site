@@ -1,4 +1,4 @@
-const { ACTIONS } = require('store/actions/loadIndicator');
+import { ACTIONS } from 'store/actions/loadIndicator';
 
 const showLoaderIndicarotAction = () => {
   return {
