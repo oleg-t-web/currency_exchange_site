@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Box, Button } from '@mui/material';
+import useLoadIndicator from 'hooks/useLoadIndicator';
 import useTransactionHistory from 'hooks/useTransactionHistory';
 
 import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
 import TransactionHistoryList from 'components/muiBased/TransactionHistoryList';
-import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 //import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 import OutputConverter from 'components/OutputConverter';
 
@@ -20,7 +20,7 @@ function CurrencyExchanger() {
   const [operation, inputField, currency, exchangeRates, currencyList, convertedAmount, onCommit] =
     useCurrencyExchanger();
 
-  const { isLoading, error } = useSelector((state) => state.loadStatus);
+  const { isLoading, error } = useLoadIndicator();
   const { transactionHistory } = useTransactionHistory();
 
   const isSell = operation.buySell === OPERATIONS.SELL;
@@ -42,7 +42,7 @@ function CurrencyExchanger() {
   if (isLoading || error) {
     return (
       <div>
-        {isLoading && <WaitIndicator />}
+        {/* {isLoading && <WaitIndicator />} */}
         {error && (
           <div className="errorMessage">
             <h2> {error}</h2>

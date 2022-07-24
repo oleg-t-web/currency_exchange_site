@@ -1,11 +1,10 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { init as initExchangerApi } from 'api/currencyApi';
 import TransactionHistoryContextProvider from 'contexts/TransactionHistoryContext';
-import store from 'store/store';
+import useLoadIndicator from 'hooks/useLoadIndicator';
 
-// import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
+import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 import Navbar from 'components/Navbar';
 
 import CurrencyExchanger from './pages/Exchanger/Exchanger';
@@ -15,23 +14,23 @@ import PAGES from './routes/Links';
 
 function App() {
   initExchangerApi();
-
+  const { isLoading } = useLoadIndicator();
   return (
     <div>
       <Router>
-        <Provider store={store}>
-          <TransactionHistoryContextProvider>
-            <Navbar />
-            {/* <WaitIndicator /> */}
-            <div>
-              <Routes>
-                <Route exact path={PAGES.HOME} element={<Home />} />
-                <Route exact path={PAGES.EXCHANGER} element={<CurrencyExchanger />} />
-                <Route exact path={PAGES.UNKNOWN} element={<NotFound />} />
-              </Routes>
-            </div>
-          </TransactionHistoryContextProvider>
-        </Provider>
+        {/* <Provider store={store}> */}
+        <TransactionHistoryContextProvider>
+          <Navbar />
+          {isLoading && <WaitIndicator />}
+          <div>
+            <Routes>
+              <Route exact path={PAGES.HOME} element={<Home />} />
+              <Route exact path={PAGES.EXCHANGER} element={<CurrencyExchanger />} />
+              <Route exact path={PAGES.UNKNOWN} element={<NotFound />} />
+            </Routes>
+          </div>
+        </TransactionHistoryContextProvider>
+        {/* </Provider> */}
       </Router>
     </div>
   );
