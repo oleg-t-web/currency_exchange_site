@@ -1,7 +1,7 @@
 import { ACTIONS } from 'store/actions/exchanger';
 
 const initialState = {
-  rates: []
+  currentRates: []
 };
 
 export const loadRatesReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ export const loadRatesReducer = (state = initialState, action) => {
     case ACTIONS.LOAD_CURRENCY:
       state = {
         ...state,
-        rates: action.value
+        currentRates: action.value
       };
       break;
   }

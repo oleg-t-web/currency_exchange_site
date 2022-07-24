@@ -82,12 +82,12 @@ function CurrencyExchanger() {
 
 const mapStateToProps = (state) => {
   console.log('mapStateToProps > ', state);
-  const { operation, selectedCurrency, input } = state;
+  const { exchanger } = state;
   return {
     initialValues: {
-      amount: input.amount,
-      operation: operation.buySell,
-      currency: selectedCurrency.currency
+      amount: exchanger.amount,
+      operation: exchanger.operation,
+      currency: exchanger.currency
     }
   };
 };

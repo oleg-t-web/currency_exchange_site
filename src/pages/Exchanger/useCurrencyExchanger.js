@@ -20,10 +20,10 @@ const useCurrencyExchanger = () => {
   const dispatchCurrencyChange = useDispatch();
   const dispatchRates = useDispatch();
 
-  const amount = useSelector((state) => state.input.amount);
-  const buySell = useSelector((state) => state.operation.buySell);
-  const selectedCurrency = useSelector((state) => state.selectedCurrency.currency);
-  const exchangeRates = useSelector((state) => state.exchange.rates);
+  const amount = useSelector((state) => state.exchanger.amount);
+  const buySell = useSelector((state) => state.exchanger.operation);
+  const selectedCurrency = useSelector((state) => state.exchanger.currency);
+  const exchangeRates = useSelector((state) => state.rates.currentRates);
 
   const isSell = buySell === OPERATIONS.SELL;
 
