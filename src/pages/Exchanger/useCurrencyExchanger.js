@@ -6,6 +6,7 @@ import buySellAction from 'store/actionCreators/exchanger/buySell';
 import inputAmountAction from 'store/actionCreators/exchanger/inputAmount';
 import loadCurrencyAction from 'store/actionCreators/exchanger/loadRates';
 import pickCurrencyAction from 'store/actionCreators/exchanger/pickCurrency';
+import { getAmountState, getCurrencyState, getOperationState } from 'store/stateGetters/exchanger';
 
 import { EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 
@@ -15,16 +16,16 @@ const useCurrencyExchanger = () => {
   const [loadStatus, setLoading] = useState({ completed: false, message: '' });
   const currencyList = useMemo(() => EXCHANGECURRENCY, []);
 
+  // ------------------------- Maybe combine to custom hook (useExchangerReducer)
   const dispatchBuySell = useDispatch();
   const dispatchInputAmount = useDispatch();
   const dispatchCurrencyChange = useDispatch();
   const dispatchRates = useDispatch();
-
-  const amount = useSelector((state) => state.exchanger.amount);
-  const buySell = useSelector((state) => state.exchanger.operation);
-  const selectedCurrency = useSelector((state) => state.exchanger.currency);
+  const amount = useSelector(getAmountState);
+  const buySell = useSelector(getOperationState);
+  const selectedCurrency = useSelector(getCurrencyState);
   const exchangeRates = useSelector((state) => state.rates.currentRates);
-
+  //-----------------------
   const isSell = buySell === OPERATIONS.SELL;
 
   const tryConvert = (amount, currency, isSell, exchangeRates) => {
