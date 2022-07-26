@@ -17,10 +17,7 @@ const useCurrencyExchanger = () => {
   const currencyList = useMemo(() => EXCHANGECURRENCY, []);
 
   // ------------------------- Maybe combine to custom hook (useExchangerReducer)
-  const dispatchBuySell = useDispatch();
-  const dispatchInputAmount = useDispatch();
-  const dispatchCurrencyChange = useDispatch();
-  const dispatchRates = useDispatch();
+  const dispatchAction = useDispatch();
   const amount = useSelector(getAmountState);
   const buySell = useSelector(getOperationState);
   const selectedCurrency = useSelector(getCurrencyState);
@@ -43,16 +40,16 @@ const useCurrencyExchanger = () => {
   };
 
   const onBuySellChange = useCallback((operation) => {
-    dispatchBuySell(buySellAction(operation));
+    dispatchAction(buySellAction(operation));
   }, []);
 
   const onAmountChange = (amount) => {
     console.log('******************Here I am**********************');
-    dispatchInputAmount(inputAmountAction(amount));
+    dispatchAction(inputAmountAction(amount));
   };
 
   const onCurrencyChange = useCallback((selectedCurrency) => {
-    dispatchCurrencyChange(pickCurrencyAction(selectedCurrency));
+    dispatchAction(pickCurrencyAction(selectedCurrency));
   }, []);
 
   const onCommit = () => {
@@ -63,7 +60,7 @@ const useCurrencyExchanger = () => {
       date: new Date().toJSON()
     };
     addTransactionRecord(transaction);
-    dispatchInputAmount(inputAmountAction(''));
+    dispatchAction(inputAmountAction(''));
     console.log(JSON.stringify(transaction));
   };
 
@@ -90,7 +87,7 @@ const useCurrencyExchanger = () => {
   };
 
   useEffect(() => {
-    dispatchRates(loadCurrencyAction());
+    dispatchAction(loadCurrencyAction());
     changeLoadStatus(true);
     console.log('Rates loaded sync');
   }, []);
