@@ -1,3 +1,4 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { ACTIONS } from 'store/actions/exchanger';
 
 const initialState = {
@@ -16,3 +17,19 @@ export const loadRatesReducer = (state = initialState, action) => {
 
   return state;
 };
+
+const loadRatesSlice = createSlice({
+  name: 'loadRates',
+  initialState: {
+    currentRates: {}
+  },
+  reducers: {
+    loadCurrencyAction(state, action) {
+      state.currentRates = action.value;
+    }
+  }
+});
+
+export const { loadCurrencyAction } = loadRatesSlice.actions;
+
+export default loadRatesSlice.reducer;

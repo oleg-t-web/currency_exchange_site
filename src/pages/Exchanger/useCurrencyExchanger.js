@@ -70,7 +70,6 @@ const useCurrencyExchanger = () => {
     const isRatesLoaded = !!Object.keys(exchangeRates).length;
     if (isRatesLoaded) {
       const conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
-
       setConvertedAmount(conversionRes);
     }
   }, [amount, selectedCurrency, buySell]);

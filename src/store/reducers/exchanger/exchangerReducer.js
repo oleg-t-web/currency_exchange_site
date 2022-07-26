@@ -1,3 +1,4 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { INITIAL_VALUES } from 'pages/helpers/initialValues';
 import { ACTIONS } from 'store/actions/exchanger';
 
@@ -26,3 +27,25 @@ export const exchangeReducer = (state = initialState, action) => {
 
   return state;
 };
+
+const exchangerSlice = createSlice({
+  name: 'exchanger',
+  initialState: {
+    ...INITIAL_VALUES
+  },
+  reducers: {
+    buySellAction(state, action) {
+      state.operation = action.value;
+    },
+    inputAmountAction(state, action) {
+      state.currency = action.value;
+    },
+    pickCurrencyAction(state, action) {
+      state.amount = action.value;
+    }
+  }
+});
+
+export const { buySellAction, inputAmountAction, pickCurrencyAction } = exchangerSlice.actions;
+
+export default exchangerSlice.reducer;
