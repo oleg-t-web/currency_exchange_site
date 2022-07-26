@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
-//import PropTypes from 'prop-types';
 import buySellAction from 'store/actionCreators/exchanger/buySell';
 import inputAmountAction from 'store/actionCreators/exchanger/inputAmount';
 import loadCurrencyAction from 'store/actionCreators/exchanger/loadRates';
@@ -13,7 +12,6 @@ import { EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
 const useCurrencyExchanger = () => {
   const { addTransactionRecord } = useContext(TransactionHistoryContext);
   const [convertedAmount, setConvertedAmount] = useState('');
-  const [loadStatus, setLoading] = useState({ completed: false, message: '' });
   const currencyList = useMemo(() => EXCHANGECURRENCY, []);
 
   // ------------------------- Maybe combine to custom hook (useExchangerReducer)
@@ -64,36 +62,13 @@ const useCurrencyExchanger = () => {
     console.log(JSON.stringify(transaction));
   };
 
-  // const prepareRates = (rates) => {
-  //   const filteredCurrencyList = rates.filter((currencyInfo) =>
-  //     Object.prototype.hasOwnProperty.call(CURRENCY, currencyInfo.cc)
-  //   );
-  //   const preparedRates = {};
-  //   filteredCurrencyList.map((currencyInfo) => {
-  //     preparedRates[currencyInfo.cc] = {
-  //       [OPERATIONS.BUY]: currencyInfo.rate,
-  //       [OPERATIONS.SELL]: (currencyInfo.rate * 1.1).toFixed(4)
-  //     };
-  //   });
-
-  //   return preparedRates;
-  // };
-
-  const changeLoadStatus = (isCompleted, message = '') => {
-    setLoading({
-      completed: isCompleted,
-      message: message
-    });
-  };
-
   useEffect(() => {
     dispatchAction(loadCurrencyAction());
-    changeLoadStatus(true);
-    console.log('Rates loaded sync');
   }, []);
 
   useEffect(() => {
-    if (loadStatus.completed) {
+    const isRatesLoaded = !!Object.keys(exchangeRates).length;
+    if (isRatesLoaded) {
       const conversionRes = tryConvert(amount, selectedCurrency, isSell, exchangeRates) || '...';
 
       setConvertedAmount(conversionRes);
@@ -107,15 +82,8 @@ const useCurrencyExchanger = () => {
     exchangeRates,
     currencyList,
     convertedAmount,
-    onCommit,
-    loadStatus
+    onCommit
   ];
 };
-
-// useCurrencyExchanger.propTypes = {
-//   initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-//   initialCurrency: PropTypes.oneOf(Object.values(CURRENCY)),
-//   initialOperation: PropTypes.oneOf(Object.values(OPERATIONS))
-// };
 
 export default useCurrencyExchanger;
