@@ -15,7 +15,7 @@ import useCurrencyExchanger from './useCurrencyExchanger';
 
 import './styles/exchanger.css';
 
-function CurrencyExchanger() {
+function Exchanger() {
   //do not know how to place them in row :((
   const [operation, inputField, currency, exchangeRates, currencyList, convertedAmount, onCommit] =
     useCurrencyExchanger();
@@ -42,7 +42,6 @@ function CurrencyExchanger() {
   if (isLoading || error) {
     return (
       <div>
-        {/* {isLoading && <WaitIndicator />} */}
         {error && (
           <div className="errorMessage">
             <h2> {error}</h2>
@@ -92,4 +91,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CurrencyExchanger);
+export default connect(mapStateToProps)(Exchanger);

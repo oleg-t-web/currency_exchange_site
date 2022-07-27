@@ -7,20 +7,18 @@ const exchangerSlice = createSlice({
     ...INITIAL_VALUES
   },
   reducers: {
-    buySellAction(state, action) {
+    buySell(state, action) {
       state.operation = action.payload;
     },
-    inputAmountAction(state, action) {
-      console.log('*****--*>>>>>', state.amount);
-      console.log('Action> ', action);
+    inputAmount(state, action) {
       state.amount = action.payload;
     },
-    pickCurrencyAction(state, action) {
+    pickCurrency(state, action) {
       state.currency = action.payload;
     }
   }
 });
 
-export const { buySellAction, inputAmountAction, pickCurrencyAction } = exchangerSlice.actions;
+export const { buySell, inputAmount, pickCurrency } = exchangerSlice.actions;
 
 export default exchangerSlice.reducer;

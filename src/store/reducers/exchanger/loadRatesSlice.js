@@ -1,30 +1,25 @@
-//import { useDispatch } from 'react-redux';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api as currencyApi } from 'api/currencyApi';
-import prepareRates from 'store/actionCreators/exchanger/helpers/prepareRates';
+import prepareRates from 'store/reducers/exchanger/helpers/prepareRates';
 
-import {
-  hideLoaderIndicarotAction,
-  setErrorMessageAction,
-  showLoaderIndicarotAction
-} from '../loaderIndicatorSlice';
+import { hideLoaderIndicator, setErrorMessage, showLoaderIndicator } from '../loaderIndicatorSlice';
 
 export const loadCurrencyAction = createAsyncThunk(
   'loadRates/loadCurrencyAction',
   async (_, thunkApi) => {
     const dispatch = thunkApi.dispatch;
-    dispatch(showLoaderIndicarotAction());
+    dispatch(showLoaderIndicator());
     return currencyApi
       .getCurrencyRates()
       .then((rates) => {
         const preparedRates = prepareRates(rates);
-        dispatch(hideLoaderIndicarotAction());
+        dispatch(hideLoaderIndicator());
         return preparedRates;
       })
       .catch((err) => {
         console.log('ERR>', err);
-        dispatch(setErrorMessageAction(err.message));
-        dispatch(hideLoaderIndicarotAction());
+        dispatch(setErrorMessage(err.message));
+        dispatch(hideLoaderIndicator());
       });
   }
 );
@@ -36,7 +31,6 @@ const loadRatesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadCurrencyAction.fulfilled, (state, action) => {
-      console.log('rates payload******22**> ', action);
       state.currentRates = action.payload;
     });
   }

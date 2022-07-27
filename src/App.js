@@ -7,7 +7,7 @@ import useLoadIndicator from 'hooks/useLoadIndicator';
 import WaitIndicator from 'components/muiBased/WaitIndicator/WaitIndicator';
 import Navbar from 'components/Navbar';
 
-import CurrencyExchanger from './pages/Exchanger/Exchanger';
+import Exchanger from './pages/Exchanger/Exchanger';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
 import PAGES from './routes/Links';
@@ -18,19 +18,17 @@ function App() {
   return (
     <div>
       <Router>
-        {/* <Provider store={store}> */}
         <TransactionHistoryContextProvider>
           <Navbar />
           {isLoading && <WaitIndicator />}
           <div>
             <Routes>
               <Route exact path={PAGES.HOME} element={<Home />} />
-              <Route exact path={PAGES.EXCHANGER} element={<CurrencyExchanger />} />
+              <Route exact path={PAGES.EXCHANGER} element={<Exchanger />} />
               <Route exact path={PAGES.UNKNOWN} element={<NotFound />} />
             </Routes>
           </div>
         </TransactionHistoryContextProvider>
-        {/* </Provider> */}
       </Router>
     </div>
   );

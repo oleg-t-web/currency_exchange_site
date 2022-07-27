@@ -1,16 +1,12 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransactionHistoryContext } from 'contexts/TransactionHistoryContext';
-//import buySellAction from 'store/actionCreators/exchanger/buySell';
 import {
-  buySellAction,
-  inputAmountAction,
-  pickCurrencyAction
+  buySell as buySellAction,
+  inputAmount as inputAmountAction,
+  pickCurrency as pickCurrencyAction
 } from 'store/reducers/exchanger/exchangerSlice';
 import { loadCurrencyAction } from 'store/reducers/exchanger/loadRatesSlice';
-// import inputAmountAction from 'store/actionCreators/exchanger/inputAmount';
-// import loadCurrencyAction from 'store/actionCreators/exchanger/loadRates';
-// import pickCurrencyAction from 'store/actionCreators/exchanger/pickCurrency';
 import { getAmountState, getCurrencyState, getOperationState } from 'store/stateGetters/exchanger';
 
 import { EXCHANGECURRENCY, OPERATIONS } from './helpers/CurrencyConstants';
@@ -25,10 +21,7 @@ const useCurrencyExchanger = () => {
   const amount = useSelector(getAmountState);
   const buySell = useSelector(getOperationState);
   const selectedCurrency = useSelector(getCurrencyState);
-  const exchangeRates = useSelector((state) => {
-    console.log('*******STATE****>>', state);
-    return state.rates.currentRates;
-  });
+  const exchangeRates = useSelector((state) => state.rates.currentRates);
   //-----------------------
   const isSell = buySell === OPERATIONS.SELL;
 

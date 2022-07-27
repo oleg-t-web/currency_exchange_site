@@ -7,19 +7,19 @@ const loaderIndicatorSlice = createSlice({
     error: null
   },
   reducers: {
-    showLoaderIndicarotAction(state) {
+    showLoaderIndicator(state) {
       state.isLoading = true;
     },
-    hideLoaderIndicarotAction(state) {
+    hideLoaderIndicator(state) {
       state.isLoading = false;
     },
-    setErrorMessageAction(state, action) {
+    setErrorMessage(state, action) {
       state.error = action.payload;
     }
   }
 });
 
-export const { showLoaderIndicarotAction, hideLoaderIndicarotAction, setErrorMessageAction } =
+export const { showLoaderIndicator, hideLoaderIndicator, setErrorMessage } =
   loaderIndicatorSlice.actions;
 
 export default loaderIndicatorSlice.reducer;
