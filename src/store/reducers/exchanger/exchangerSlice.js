@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { INITIAL_VALUES } from 'pages/helpers/initialValues';
+import { INITIAL_VALUES } from 'store/reducers/exchanger/helpers/initialValues';
 
 const exchangerSlice = createSlice({
   name: 'exchanger',

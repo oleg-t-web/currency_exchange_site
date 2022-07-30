@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
 import { Box, Button } from '@mui/material';
 import useLoadIndicator from 'hooks/useLoadIndicator';
 import useTransactionHistory from 'hooks/useTransactionHistory';
-import { getAmountState, getCurrencyState, getOperationState } from 'store/stateGetters/exchanger';
 
 import OperationPicker from 'components/exchanger/OperationPicker';
 import Table from 'components/muiBased/Table/Table';
@@ -57,6 +55,7 @@ function Exchanger() {
         <TransactionHistoryList data-testid="transactionHistory" values={transactionHistory} />
       </Box>
       <Table {...getCurrencyTable} />
+      {/* do not know how to make prettie */}
       <OperationPicker {...{ ...currency, currencyList, ...operation }} />
       <OutputConverter
         {...{
@@ -79,16 +78,4 @@ function Exchanger() {
   );
 }
 
-const mapStateToProps = (state) => {
-  console.log('mapStateToProps > ', state);
-
-  return {
-    initialValues: {
-      amount: getAmountState(state),
-      operation: getOperationState(state),
-      currency: getCurrencyState(state)
-    }
-  };
-};
-
-export default connect(mapStateToProps)(Exchanger);
+export default Exchanger;

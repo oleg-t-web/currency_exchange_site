@@ -1,4 +1,4 @@
-import { CURRENCY, OPERATIONS } from '../Exchanger/helpers/CurrencyConstants';
+import { CURRENCY, OPERATIONS } from '../../../../pages/Exchanger/helpers/CurrencyConstants';
 
 export const INITIAL_VALUES = {
   amount: '',

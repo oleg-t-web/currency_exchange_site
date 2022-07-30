@@ -1,4 +1,5 @@
 import { CURRENCY, OPERATIONS } from 'pages/Exchanger/helpers/CurrencyConstants';
+
 const prepareRates = (rates) => {
   const filteredCurrencyList = rates.filter((currencyInfo) =>
     Object.prototype.hasOwnProperty.call(CURRENCY, currencyInfo.cc)

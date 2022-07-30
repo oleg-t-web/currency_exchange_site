@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { INITIAL_VALUES as mockedValues } from '../../helpers/initialValues';
+import { INITIAL_VALUES as mockedValues } from '../../../store/reducers/exchanger/helpers/initialValues';
 import CurrencyExchanger from '../CurrencyExchanger';
 import { CURRENCY, OPERATIONS } from '../helpers/CurrencyConstants';
 
